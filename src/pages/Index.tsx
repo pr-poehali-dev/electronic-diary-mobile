@@ -29,35 +29,24 @@ const Index = () => {
 
   const DiaryContent = () => (
     <div className="space-y-4 animate-fade-in">
-      <div className="bg-diary-red p-6 rounded-xl text-white relative overflow-hidden min-h-[160px] flex flex-col justify-center">
-        {/* Желтые декоративные элементы */}
-        <div className="absolute top-4 right-4 w-16 h-16 border-4 border-diary-yellow rounded-full opacity-80"></div>
-        <div className="absolute bottom-2 left-4 w-8 h-8 bg-diary-yellow rounded-full opacity-60"></div>
-        <div className="absolute top-1/2 right-8 w-12 h-12 border-2 border-diary-yellow rounded-full opacity-40"></div>
+      <div className="bg-diary-red p-6 rounded-xl text-white relative overflow-hidden min-h-[160px]">
+        {/* Желтая изогнутая полоска как на фото */}
+        <div className="absolute top-1/2 left-0 w-full h-full">
+          <svg viewBox="0 0 200 100" className="w-full h-full">
+            <path 
+              d="M-20 60 Q50 20 100 40 T220 60" 
+              stroke="#EAB308" 
+              strokeWidth="8" 
+              fill="none"
+              className="opacity-90"
+            />
+          </svg>
+        </div>
         
         {/* Главный контент */}
         <div className="relative z-10">
-          <h1 className="text-3xl font-black mb-1 leading-tight">
-            Суббота
-          </h1>
-          <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-lg font-bold text-diary-yellow bg-black/20 px-2 py-1 rounded-lg">
-              29/09
-            </span>
-            <span className="text-xl font-bold">
-              Дневник
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-sm font-medium opacity-90">
-            <div className="flex items-center gap-1">
-              <Icon name="Clock" size={16} />
-              <span>5 уроков</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Icon name="Calendar" size={16} />
-              <span>Сентябрь 2024</span>
-            </div>
-          </div>
+          <h2 className="text-xl font-bold mb-2">Сегодня, 29 сентября</h2>
+          <p className="text-white/90">Суббота • 5 уроков</p>
         </div>
       </div>
 
