@@ -19,7 +19,7 @@ const Index = () => {
 
   const messages = [
     { 
-      from: 'Цвирко В.В.', 
+      from: 'Цвирко В.Ю.', 
       subject: 'Привет, я сегодня на концерте НКЕЯ, ГЛАМУР...', 
       time: '14:30', 
       isRead: false,
