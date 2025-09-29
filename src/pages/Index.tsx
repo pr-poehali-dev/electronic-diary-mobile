@@ -267,9 +267,18 @@ const Index = () => {
 
   const MessagesContent = () => (
     <div className="space-y-4 animate-fade-in">
-      <div className="bg-gradient-to-r from-diary-blue to-diary-yellow p-4 rounded-xl text-white">
+      <div className="bg-gradient-to-r from-diary-red to-red-600 p-4 rounded-xl text-white relative overflow-hidden">
         <h2 className="text-xl font-bold mb-2">Сообщения</h2>
         <p className="text-white/90">5 новых сообщений</p>
+        
+        {/* Стикер в правом верхнем углу */}
+        <div className="absolute top-2 right-2 w-12 h-12 transform rotate-12">
+          <img 
+            src="https://cdn.poehali.dev/files/93758476-4e03-4819-9cc0-77c0592bfd73.jpg" 
+            alt="sticker"
+            className="w-full h-full object-contain"
+          />
+        </div>
       </div>
 
       <div className="space-y-3">
