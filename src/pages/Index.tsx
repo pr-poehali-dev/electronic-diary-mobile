@@ -16,9 +16,41 @@ const Index = () => {
   ];
 
   const messages = [
-    { from: 'Иванова А.П.', subject: 'Домашнее задание', time: '14:30', isRead: false },
-    { from: 'Петрова М.И.', subject: 'Контрольная работа', time: '12:15', isRead: true },
-    { from: 'Директор', subject: 'Собрание родителей', time: '09:00', isRead: false },
+    { 
+      from: 'Иванова А.П.', 
+      subject: 'Домашнее задание', 
+      time: '14:30', 
+      isRead: false,
+      avatar: 'https://cdn.poehali.dev/files/6c7e1dfb-cebc-4026-b408-d2a276f38142.jpg'
+    },
+    { 
+      from: 'Петрова М.И.', 
+      subject: 'Контрольная работа', 
+      time: '12:15', 
+      isRead: true,
+      avatar: 'https://cdn.poehali.dev/files/141b5ec4-0ddf-4efe-a301-a34a39fdb83c.jpg'
+    },
+    { 
+      from: 'Директор', 
+      subject: 'Собрание родителей', 
+      time: '09:00', 
+      isRead: false,
+      avatar: 'https://cdn.poehali.dev/files/f0c5a372-c374-434c-a358-2afc88e936d5.jpg'
+    },
+    { 
+      from: 'Смирнов Д.О.', 
+      subject: 'Подготовка к олимпиаде', 
+      time: '16:45', 
+      isRead: false,
+      avatar: 'https://cdn.poehali.dev/files/a5ff32d1-9b44-4f13-92f8-465fa0ded17e.jpg'
+    },
+    { 
+      from: 'Волкова Е.А.', 
+      subject: 'Экскурсия в музей', 
+      time: '08:20', 
+      isRead: true,
+      avatar: 'https://cdn.poehali.dev/files/b394fa1c-cfef-4be3-8714-181a88e2e399.jpg'
+    },
   ];
 
   const grades = [
@@ -128,14 +160,21 @@ const Index = () => {
     <div className="space-y-4 animate-fade-in">
       <div className="bg-gradient-to-r from-diary-blue to-diary-yellow p-4 rounded-xl text-white">
         <h2 className="text-xl font-bold mb-2">Сообщения</h2>
-        <p className="text-white/90">3 новых сообщения</p>
+        <p className="text-white/90">5 новых сообщений</p>
       </div>
 
       <div className="space-y-3">
         {messages.map((message, idx) => (
           <Card key={idx} className={`${!message.isRead ? 'ring-2 ring-diary-red/20' : ''}`}>
             <CardContent className="p-4">
-              <div className="flex items-start justify-between">
+              <div className="flex items-start gap-3">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-diary-yellow flex-shrink-0">
+                  <img 
+                    src={message.avatar} 
+                    alt={message.from}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-medium">{message.from}</span>
