@@ -272,11 +272,15 @@ const Index = () => {
         <p className="text-white/90">5 новых сообщений</p>
         
         {/* Стикер в правом верхнем углу */}
-        <div className="absolute top-2 right-2 w-12 h-12 transform rotate-12">
+        <div className="absolute -top-4 -right-4 w-24 h-24 transform rotate-12">
           <img 
             src="https://cdn.poehali.dev/files/93758476-4e03-4819-9cc0-77c0592bfd73.jpg" 
             alt="sticker"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain drop-shadow-lg"
+            style={{
+              filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
+              mixBlendMode: 'multiply'
+            }}
           />
         </div>
       </div>
