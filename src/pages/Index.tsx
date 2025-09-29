@@ -424,7 +424,7 @@ const Index = () => {
       <div className="space-y-4 animate-fade-in">
         {showTopUp && <TopUpModal />}
         
-        <div className="bg-gradient-to-r from-diary-blue via-diary-yellow to-diary-red p-6 rounded-xl text-white relative overflow-hidden">
+        <div className="bg-gradient-to-r from-diary-yellow to-diary-red p-6 rounded-xl text-white relative overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-xl font-bold mb-1">Школьная карта</h2>
@@ -486,7 +486,7 @@ const Index = () => {
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-3 bg-diary-blue/10 rounded-lg">
-                <p className="text-2xl font-bold text-diary-blue">7</p>
+                <p className="text-2xl font-bold text-diary-blue">4</p>
                 <p className="text-sm text-muted-foreground">Покупок сегодня</p>
               </div>
               <div className="text-center p-3 bg-diary-yellow/10 rounded-lg">
@@ -596,8 +596,7 @@ const Index = () => {
         return <ScheduleContent />;
       case 'card':
         return <SchoolCardContent />;
-      case 'school':
-        return <SchoolMapContent />;
+
       default:
         return <DiaryContent />;
     }
@@ -662,17 +661,7 @@ const Index = () => {
               <span className="text-xs">Карта</span>
             </Button>
 
-            <Button
-              variant={activeTab === 'school' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setActiveTab('school')}
-              className={`flex flex-col items-center gap-1 h-auto py-2 px-2 ${
-                activeTab === 'school' ? 'bg-diary-red text-white' : 'text-gray-600'
-              }`}
-            >
-              <Icon name="Building" size={18} />
-              <span className="text-xs">Школа</span>
-            </Button>
+
           </div>
         </div>
         )}
