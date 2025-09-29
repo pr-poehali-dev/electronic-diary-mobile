@@ -38,21 +38,20 @@ const Index = () => {
         <div className="relative z-10 p-6 flex-1">
           <div className="mb-4">
             <h1 className="text-4xl font-black leading-tight mb-1">
-              Saturday
+              Суббота
             </h1>
-            <h1 className="text-4xl font-black leading-tight">
-              Night Pa<span className="inline-block transform rotate-12">r</span>ty!
+            <h1 className="text-2xl font-black leading-tight mb-1">
+              29/09
             </h1>
-          </div>
-          
-          {/* Дата в овале */}
-          <div className="absolute top-16 left-12 bg-diary-yellow text-black px-3 py-1 rounded-full font-bold text-lg transform -rotate-12">
-            29/09
-          </div>
-          
-          {/* Время в правом углу */}
-          <div className="absolute top-8 right-6 text-3xl font-bold">
-            12:30
+            <h1 className="text-3xl font-black leading-tight mb-1">
+              Дневник
+            </h1>
+            <p className="text-lg font-bold mb-1">
+              7 уроков
+            </p>
+            <p className="text-lg font-bold">
+              Сентябрь 2025
+            </p>
           </div>
         </div>
         
