@@ -17,35 +17,35 @@ const Index = () => {
 
   const messages = [
     { 
-      from: 'Иванова А.П.', 
+      from: 'Цвирко В.В.', 
       subject: 'Домашнее задание', 
       time: '14:30', 
       isRead: false,
       avatar: 'https://cdn.poehali.dev/files/6c7e1dfb-cebc-4026-b408-d2a276f38142.jpg'
     },
     { 
-      from: 'Петрова М.И.', 
+      from: 'НСКИН', 
       subject: 'Контрольная работа', 
       time: '12:15', 
       isRead: true,
       avatar: 'https://cdn.poehali.dev/files/141b5ec4-0ddf-4efe-a301-a34a39fdb83c.jpg'
     },
     { 
-      from: 'Директор', 
+      from: 'Дрёмов А.А.', 
       subject: 'Собрание родителей', 
       time: '09:00', 
       isRead: false,
       avatar: 'https://cdn.poehali.dev/files/f0c5a372-c374-434c-a358-2afc88e936d5.jpg'
     },
     { 
-      from: 'Смирнов Д.О.', 
+      from: 'Борисова М.А.', 
       subject: 'Подготовка к олимпиаде', 
       time: '16:45', 
       isRead: false,
       avatar: 'https://cdn.poehali.dev/files/a5ff32d1-9b44-4f13-92f8-465fa0ded17e.jpg'
     },
     { 
-      from: 'Волкова Е.А.', 
+      from: 'Сидни Прескотт', 
       subject: 'Экскурсия в музей', 
       time: '08:20', 
       isRead: true,
@@ -168,7 +168,7 @@ const Index = () => {
           <Card key={idx} className={`${!message.isRead ? 'ring-2 ring-diary-red/20' : ''}`}>
             <CardContent className="p-4">
               <div className="flex items-start gap-3">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-diary-yellow flex-shrink-0">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-diary-yellow flex-shrink-0">
                   <img 
                     src={message.avatar} 
                     alt={message.from}
