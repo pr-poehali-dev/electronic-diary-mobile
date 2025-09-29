@@ -5,6 +5,7 @@ import ChatDialog from '@/components/messages/ChatDialog';
 import ScheduleContent from '@/components/schedule/ScheduleContent';
 import SchoolCardContent from '@/components/schoolcard/SchoolCardContent';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('diary');
@@ -101,12 +102,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <div className="max-w-md mx-auto bg-white min-h-screen relative pb-20">
+      <div className="max-w-md mx-auto bg-card min-h-screen relative pb-20">
+        <div className="fixed top-4 right-4 z-20">
+          <ThemeToggle />
+        </div>
+        
         <div className="p-4">
           {renderContent()}
         </div>
 
-        {/* Мобильная навигация */}
         {!selectedChat && (
           <BottomNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
         )}

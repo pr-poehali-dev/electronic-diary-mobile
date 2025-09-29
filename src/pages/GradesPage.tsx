@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const GradesPage: React.FC = () => {
   const navigate = useNavigate();
@@ -146,7 +147,7 @@ const GradesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background font-sans">
-      <div className="max-w-4xl mx-auto bg-white min-h-screen">
+      <div className="max-w-4xl mx-auto bg-card min-h-screen">
         <div className="sticky top-0 bg-gradient-to-r from-diary-yellow to-diary-red p-4 text-white z-10 shadow-md">
           <div className="flex items-center gap-3">
             <button 
@@ -155,7 +156,8 @@ const GradesPage: React.FC = () => {
             >
               <Icon name="ArrowLeft" size={24} />
             </button>
-            <h1 className="text-xl font-bold">Журнал оценок 10а класса</h1>
+            <h1 className="text-xl font-bold flex-1">Журнал оценок 10а класса</h1>
+            <ThemeToggle />
           </div>
         </div>
 
@@ -163,22 +165,22 @@ const GradesPage: React.FC = () => {
           {subjects.map((subject, idx) => (
             <Card key={idx} className="overflow-hidden">
               <CardContent className="p-0">
-                <div className="bg-gray-100 px-4 py-3 border-b border-gray-200">
+                <div className="bg-muted px-4 py-3 border-b border-border">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-bold text-lg text-gray-800">{subject.name}</h3>
-                      <p className="text-sm text-gray-600">{subject.teacher}</p>
+                      <h3 className="font-bold text-lg text-foreground">{subject.name}</h3>
+                      <p className="text-sm text-muted-foreground">{subject.teacher}</p>
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-diary-blue">
                         {calculateAverage(subject.grades)}
                       </div>
-                      <div className="text-xs text-gray-500">средний балл</div>
+                      <div className="text-xs text-muted-foreground">средний балл</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="p-4">
+                <div className="p-4 bg-card">
                   <div className="flex flex-wrap gap-2">
                     {subject.grades.map((grade, gIdx) => (
                       <div 
@@ -190,7 +192,7 @@ const GradesPage: React.FC = () => {
                         >
                           {grade.value}
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className="text-xs text-muted-foreground mt-1">
                           {grade.date}
                         </div>
                       </div>
@@ -202,9 +204,9 @@ const GradesPage: React.FC = () => {
           ))}
         </div>
 
-        <div className="p-4 bg-gray-50 border-t border-gray-200">
+        <div className="p-4 bg-muted border-t border-border">
           <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-muted-foreground">
               <Icon name="Info" size={16} className="inline mr-1" />
               Сентябрь 2025
             </div>
