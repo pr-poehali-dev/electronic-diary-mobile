@@ -18,7 +18,7 @@ const Index = () => {
   const messages = [
     { 
       from: 'Цвирко В.В.', 
-      subject: 'Домашнее задание', 
+      subject: 'Привет, я сегодня на концерте НКЕЯ, ГЛАМУР...', 
       time: '14:30', 
       isRead: false,
       avatar: 'https://cdn.poehali.dev/files/6c7e1dfb-cebc-4026-b408-d2a276f38142.jpg'
