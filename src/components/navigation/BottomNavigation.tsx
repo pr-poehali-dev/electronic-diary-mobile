@@ -57,6 +57,18 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, setActiv
         <Icon name="CreditCard" size={18} />
         <span className="text-xs">Карта</span>
       </Button>
+
+      <Button
+        variant={activeTab === 'profile' ? 'default' : 'ghost'}
+        size="sm"
+        onClick={() => setActiveTab('profile')}
+        className={`flex flex-col items-center gap-1 h-auto py-2 px-2 ${
+          activeTab === 'profile' ? 'bg-diary-red text-white' : 'text-gray-600'
+        }`}
+      >
+        <Icon name="UserCircle" size={18} />
+        <span className="text-xs">Профиль</span>
+      </Button>
     </div>
   </div>
 );

@@ -4,6 +4,7 @@ import MessagesContent from '@/components/messages/MessagesContent';
 import ChatDialog from '@/components/messages/ChatDialog';
 import ScheduleContent from '@/components/schedule/ScheduleContent';
 import SchoolCardContent from '@/components/schoolcard/SchoolCardContent';
+import ProfileContent from '@/components/profile/ProfileContent';
 import BottomNavigation from '@/components/navigation/BottomNavigation';
 import ThemeToggle from '@/components/ThemeToggle';
 
@@ -95,6 +96,8 @@ const Index = () => {
             setTopUpAmount={setTopUpAmount}
           />
         );
+      case 'profile':
+        return <ProfileContent />;
       default:
         return <DiaryContent schedule={schedule} grades={grades} />;
     }
