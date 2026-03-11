@@ -3,21 +3,20 @@
  *
  * Компонент отображения данных пользователя после входа.
  */
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
-// ============================================================================
-// ТИПЫ
-// ============================================================================
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Icon from "@/components/ui/icon";
 
 interface User {
   id: number;
@@ -27,19 +26,11 @@ interface User {
 }
 
 interface UserProfileProps {
-  /** Данные пользователя из useAuth */
   user: User;
-  /** Функция выхода из useAuth */
   onLogout: () => Promise<void>;
-  /** Состояние загрузки */
   isLoading?: boolean;
-  /** CSS класс для Card */
   className?: string;
 }
-
-// ============================================================================
-// КОМПОНЕНТ
-// ============================================================================
 
 export function UserProfile({
   user,
@@ -47,130 +38,127 @@ export function UserProfile({
   isLoading = false,
   className = "",
 }: UserProfileProps): React.ReactElement {
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(
+    () => localStorage.getItem(`avatar_${user.id}`)
+  );
+  const [school, setSchool] = useState(
+    () => localStorage.getItem(`school_${user.id}`) || ""
+  );
+  const [grade, setGrade] = useState(
+    () => localStorage.getItem(`grade_${user.id}`) || ""
+  );
+  const [saved, setSaved] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
   const initials = user.name
-    ? user.name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2)
+    ? user.name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
     : user.email[0].toUpperCase();
 
-  const handleLogout = async () => {
-    await onLogout();
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setAvatarUrl(result);
+      localStorage.setItem(`avatar_${user.id}`, result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSave = () => {
+    localStorage.setItem(`school_${user.id}`, school);
+    localStorage.setItem(`grade_${user.id}`, grade);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
   };
 
   return (
     <Card className={className}>
       <CardHeader className="text-center">
-        <div className="flex justify-center mb-4">
-          <Avatar className="h-20 w-20">
+        <div className="flex justify-center mb-4 relative w-fit mx-auto">
+          <Avatar className="h-24 w-24">
+            {avatarUrl && <AvatarImage src={avatarUrl} />}
             <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
               {initials}
             </AvatarFallback>
           </Avatar>
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            className="absolute bottom-0 right-0 bg-white border border-border rounded-full p-1.5 shadow-sm hover:bg-gray-50"
+          >
+            <Icon name="Camera" size={14} className="text-gray-600" />
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleAvatarChange}
+          />
         </div>
-        <CardTitle className="text-xl">
-          {user.name || "Пользователь"}
-        </CardTitle>
+        <CardTitle className="text-xl">{user.name || "Пользователь"}</CardTitle>
         <CardDescription>{user.email}</CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-3">
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">ID</span>
-          <span className="font-mono">{user.id}</span>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="school">Школа</Label>
+          <Input
+            id="school"
+            placeholder="Например: МБОУ СОШ №5"
+            value={school}
+            onChange={(e) => setSchool(e.target.value)}
+          />
         </div>
+        <div className="space-y-2">
+          <Label htmlFor="grade">Класс</Label>
+          <Input
+            id="grade"
+            placeholder="Например: 9А"
+            value={grade}
+            onChange={(e) => setGrade(e.target.value)}
+          />
+        </div>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={handleSave}
+        >
+          {saved ? "Сохранено!" : "Сохранить"}
+        </Button>
 
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Email</span>
-          <div className="flex items-center gap-2">
-            <span>{user.email}</span>
-            {user.email_verified !== undefined && (
-              <span
-                className={`text-xs px-2 py-0.5 rounded-full ${
-                  user.email_verified
-                    ? "bg-green-100 text-green-700"
-                    : "bg-yellow-100 text-yellow-700"
-                }`}
-              >
-                {user.email_verified ? "✓" : "не подтверждён"}
+        <div className="border-t pt-3 space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Email</span>
+            <span className="truncate max-w-[180px]">{user.email}</span>
+          </div>
+          {user.email_verified !== undefined && (
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Статус</span>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                user.email_verified ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
+              }`}>
+                {user.email_verified ? "Подтверждён" : "Не подтверждён"}
               </span>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-
-        {user.name && (
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Имя</span>
-            <span>{user.name}</span>
-          </div>
-        )}
       </CardContent>
 
       <CardFooter>
         <Button
           variant="outline"
-          className="w-full"
-          onClick={handleLogout}
+          className="w-full text-red-500 border-red-200 hover:bg-red-50"
+          onClick={onLogout}
           disabled={isLoading}
         >
-          {isLoading ? "Выход..." : "Выйти"}
+          {isLoading ? "Выход..." : "Выйти из аккаунта"}
         </Button>
       </CardFooter>
     </Card>
   );
 }
-
-// ============================================================================
-// ПРИМЕР ИСПОЛЬЗОВАНИЯ
-// ============================================================================
-
-/*
-import { useAuth } from "./useAuth";
-import { LoginForm } from "./LoginForm";
-import { UserProfile } from "./UserProfile";
-
-const AUTH_URL = "https://functions.poehali.dev/xxx";
-
-function AuthPage() {
-  const { user, isAuthenticated, login, logout, error, isLoading } = useAuth({
-    apiUrls: {
-      login: `${AUTH_URL}?action=login`,
-      register: `${AUTH_URL}?action=register`,
-      verifyEmail: `${AUTH_URL}?action=verify-email`,
-      refresh: `${AUTH_URL}?action=refresh`,
-      logout: `${AUTH_URL}?action=logout`,
-      resetPassword: `${AUTH_URL}?action=reset-password`,
-    },
-  });
-
-  // Показать профиль если авторизован
-  if (isAuthenticated && user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <UserProfile
-          user={user}
-          onLogout={logout}
-          isLoading={isLoading}
-          className="w-full max-w-md"
-        />
-      </div>
-    );
-  }
-
-  // Показать форму входа
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <LoginForm
-        onLogin={login}
-        error={error}
-        isLoading={isLoading}
-        className="w-full max-w-md"
-      />
-    </div>
-  );
-}
-*/
 
 export default UserProfile;
