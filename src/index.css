@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-image: url("https://cdn.poehali.dev/projects/7f76478c-2204-4f4a-9fca-9c377ba2402c/bucket/602cb878-f30e-4d9c-a8b4-7006ecf85247.jpg");
+  background-repeat: repeat;
+  background-size: 600px 400px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
