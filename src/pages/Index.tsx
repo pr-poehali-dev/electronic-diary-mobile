@@ -26,37 +26,42 @@ const Index = () => {
   const messages = [
     { 
       from: 'Цвирко В.Ю.', 
-      subject: 'Привет, я сегодня на концерте НКЕЯ, ГЛАМУР...', 
+      subject: 'Напоминаю: завтра контрольная по алгебре — тригонометрия и логарифмы', 
       time: '14:30', 
       isRead: false,
+      role: 'teacher' as const,
       avatar: 'https://cdn.poehali.dev/files/6c7e1dfb-cebc-4026-b408-d2a276f38142.jpg'
     },
     { 
       from: 'НСКИН', 
-      subject: 'Контрольная работа', 
+      subject: 'Контрольная по физике перенесена на пятницу, 4-й урок', 
       time: '12:15', 
       isRead: true,
+      role: 'teacher' as const,
       avatar: 'https://cdn.poehali.dev/files/141b5ec4-0ddf-4efe-a301-a34a39fdb83c.jpg'
     },
     { 
       from: 'Дрёмов А.А.', 
-      subject: 'Собрание родителей', 
+      subject: 'Собрание родителей в пятницу в 18:00 — итоги четверти', 
       time: '09:00', 
       isRead: false,
-      avatar: 'https://cdn.poehali.dev/files/f0c5a372-c374-434c-a358-2afc88e936d5.jpg'
+      role: 'teacher' as const,
+      avatar: 'https://cdn.poehali.dev/projects/7f76478c-2204-4f4a-9fca-9c377ba2402c/bucket/38eb0ea2-4cde-4165-85eb-327d31de44a3.jpg'
     },
     { 
       from: 'Борисова М.А.', 
-      subject: 'Подготовка к олимпиаде', 
+      subject: 'Задачи из сборника по химии — стр. 45–60 к олимпиаде', 
       time: '16:45', 
       isRead: false,
+      role: 'teacher' as const,
       avatar: 'https://cdn.poehali.dev/files/a5ff32d1-9b44-4f13-92f8-465fa0ded17e.jpg'
     },
     { 
       from: 'Сидни Прескотт', 
-      subject: 'Экскурсия в музей', 
+      subject: 'Экскурсия в музей — сдаём 350 руб. старосте до среды', 
       time: '08:20', 
       isRead: true,
+      role: 'student' as const,
       avatar: 'https://cdn.poehali.dev/files/b394fa1c-cfef-4be3-8714-181a88e2e399.jpg'
     },
   ];

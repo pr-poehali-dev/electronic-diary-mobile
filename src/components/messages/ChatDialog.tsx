@@ -13,6 +13,7 @@ interface Chat {
   subject: string;
   time: string;
   avatar: string;
+  role: 'teacher' | 'student';
 }
 
 interface ChatDialogProps {
@@ -22,108 +23,212 @@ interface ChatDialogProps {
   setNewMessage: (message: string) => void;
 }
 
+const CHAT_DIALOGS: Record<string, ChatMessage[]> = {
+  'Цвирко В.Ю.': [
+    { text: 'Добрый день! Напоминаю, что завтра контрольная по алгебре — темы: тригонометрия и логарифмы.', isTeacher: true, time: '14:28' },
+    { text: 'Здравствуйте! Поняла, спасибо. А какие задания повторить?', isTeacher: false, time: '14:30' },
+    { text: 'Задачи из §12 и §14, там разборы к ним есть. Удачи!', isTeacher: true, time: '14:31' },
+    { text: 'Спасибо большое, буду готовиться!', isTeacher: false, time: '14:33' },
+  ],
+  'НСКИН': [
+    { text: 'Контрольная работа по физике перенесена на пятницу, 4-й урок. Явка обязательна.', isTeacher: true, time: '12:10' },
+    { text: 'Хорошо, понял. А программа та же?', isTeacher: false, time: '12:15' },
+    { text: 'Да, темы те же: электромагнетизм и оптика.', isTeacher: true, time: '12:17' },
+    { text: 'Окей, готовлюсь! Спасибо за предупреждение.', isTeacher: false, time: '12:18' },
+    { text: 'Пожалуйста. Если есть вопросы — спрашивай.', isTeacher: true, time: '12:20' },
+  ],
+  'Дрёмов А.А.': [
+    { text: 'Уважаемые родители и ученики! Собрание состоится в пятницу в 18:00 в актовом зале. Тема: итоги четверти.', isTeacher: true, time: '09:00' },
+    { text: 'Понял, передам родителям. Обязательно придём.', isTeacher: false, time: '09:15' },
+    { text: 'Отлично! Также обсудим подготовку к олимпиадам и поездку в Москву.', isTeacher: true, time: '09:18' },
+    { text: 'Про Москву интересно! Что нужно подготовить?', isTeacher: false, time: '09:20' },
+    { text: 'Всё расскажем на собрании. До встречи!', isTeacher: true, time: '09:21' },
+  ],
+  'Борисова М.А.': [
+    { text: 'Привет! По олимпиаде по химии: нужно решить задачи из прошлогоднего сборника, стр. 45–60.', isTeacher: true, time: '16:40' },
+    { text: 'Хорошо, уже начала. Там реакции окисления — могу уточнить по 3-й задаче?', isTeacher: false, time: '16:45' },
+    { text: 'Конечно! Там надо учитывать степень окисления марганца. Напиши полное уравнение.', isTeacher: true, time: '16:48' },
+    { text: 'Поняла, попробую ещё раз. Спасибо!', isTeacher: false, time: '16:50' },
+    { text: 'Молодец, ты справишься! Ты очень хорошо подготовлена.', isTeacher: true, time: '16:52' },
+  ],
+  'Сидни Прескотт': [
+    { text: 'Привет! Помнишь про экскурсию в музей изобразительных искусств? Надо сдать деньги до среды.', isTeacher: false, time: '08:15' },
+    { text: 'Да помню! Сколько там было?', isTeacher: false, time: '08:18' },
+    { text: 'Привет! 350 рублей, сдаём старосте.', isTeacher: false, time: '08:20' },
+    { text: 'Окей, занесу завтра! Говорят, там классные импрессионисты?', isTeacher: false, time: '08:22' },
+    { text: 'Да, и современное искусство тоже! Будет весело.', isTeacher: false, time: '08:24' },
+  ],
+};
+
 const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNewMessage }) => {
-  const chatMessages: ChatMessage[] = [
-    {
-      text: chat.subject,
-      isTeacher: true,
-      time: chat.time,
-      avatar: chat.avatar
-    },
-    {
-      text: "Спасибо за информацию! А когда будет следующий урок?",
-      isTeacher: false,
-      time: "14:32"
-    },
-    {
-      text: "Завтра в обычное время, не забудьте учебники!",
-      isTeacher: true,
-      time: "14:35",
-      avatar: chat.avatar
-    }
+  const chatMessages = CHAT_DIALOGS[chat.from] ?? [
+    { text: chat.subject, isTeacher: chat.role === 'teacher', time: chat.time, avatar: chat.avatar },
+    { text: 'Хорошо, понял. Спасибо!', isTeacher: false, time: '14:32' },
+    { text: 'Пожалуйста! Обращайся, если что.', isTeacher: chat.role === 'teacher', time: '14:35', avatar: chat.avatar },
   ];
+
+  const isStudentChat = chat.role === 'student';
 
   const sendMessage = () => {
     if (newMessage.trim()) {
-      // Здесь можно добавить логику отправки
       setNewMessage('');
     }
   };
 
   return (
-    <div className="space-y-4 animate-fade-in h-full flex flex-col">
-      {/* Заголовок чата */}
-      <div className="bg-gradient-to-r from-diary-blue to-diary-yellow p-4 rounded-xl text-white">
-        <div className="flex items-center gap-3">
-          <button 
+    <div className="space-y-3 animate-fade-in flex flex-col" style={{ minHeight: '80vh' }}>
+
+      {/* Заголовок — стиль расписания */}
+      <div style={{
+        background: 'rgba(255,255,255,0.12)',
+        backdropFilter: 'blur(32px) saturate(1.8)',
+        WebkitBackdropFilter: 'blur(32px) saturate(1.8)',
+        borderRadius: 20,
+        border: '1px solid rgba(255,255,255,0.25)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        padding: '12px 14px',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
             onClick={onBack}
-            className="text-white hover:text-gray-200 transition-colors"
+            style={{
+              background: 'rgba(220,38,38,0.12)',
+              border: '1px solid rgba(220,38,38,0.2)',
+              borderRadius: 12,
+              width: 38, height: 38,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: '#dc2626',
+              flexShrink: 0,
+            }}
           >
-            <Icon name="ArrowLeft" size={24} />
+            <Icon name="ArrowLeft" size={20} />
           </button>
-          <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white">
-            <img 
-              src={chat.avatar} 
-              alt={chat.from}
-              className="w-full h-full object-cover"
-            />
+
+          <div style={{
+            width: 46, height: 46,
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: isStudentChat ? '2px solid rgba(59,130,246,0.5)' : '2px solid rgba(220,38,38,0.4)',
+            flexShrink: 0,
+          }}>
+            <img src={chat.avatar} alt={chat.from} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <div>
-            <h2 className="text-xl font-bold">{chat.from}</h2>
-            <p className="text-white/90 text-sm">онлайн</p>
+
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+              <span style={{ fontWeight: 700, fontSize: 15, color: 'rgba(30,10,10,0.9)' }}>
+                {chat.from}
+              </span>
+              <span style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: isStudentChat ? '#2563eb' : '#dc2626',
+                background: isStudentChat ? 'rgba(59,130,246,0.12)' : 'rgba(220,38,38,0.10)',
+                border: `1px solid ${isStudentChat ? 'rgba(59,130,246,0.3)' : 'rgba(220,38,38,0.25)'}`,
+                borderRadius: 8,
+                padding: '1px 7px',
+                letterSpacing: '0.04em',
+              }}>
+                {isStudentChat ? 'Ученик' : 'Учитель'}
+              </span>
+            </div>
+            <p style={{ fontSize: 11, color: 'rgba(30,10,10,0.4)', marginTop: 1 }}>онлайн</p>
           </div>
         </div>
       </div>
 
       {/* Сообщения */}
-      <div className="flex-1 space-y-3 min-h-0 overflow-y-auto">
-        {chatMessages.map((msg, idx) => (
-          <div key={idx} className={`flex gap-3 ${msg.isTeacher ? '' : 'flex-row-reverse'}`}>
-            {msg.isTeacher && (
-              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-diary-yellow flex-shrink-0">
-                <img 
-                  src={msg.avatar} 
-                  alt={chat.from}
-                  className="w-full h-full object-cover"
-                />
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {chatMessages.map((msg, idx) => {
+          const isMine = !msg.isTeacher;
+          return (
+            <div key={idx} style={{
+              display: 'flex',
+              flexDirection: isMine ? 'row-reverse' : 'row',
+              alignItems: 'flex-end',
+              gap: 8,
+            }}>
+              {!isMine && (
+                <div style={{
+                  width: 34, height: 34,
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+                  border: '2px solid rgba(220,38,38,0.3)',
+                  flexShrink: 0,
+                }}>
+                  <img src={chat.avatar} alt={chat.from} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              )}
+              <div style={{
+                maxWidth: '72%',
+                background: isMine
+                  ? 'rgba(220,38,38,0.15)'
+                  : 'rgba(255,255,255,0.55)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: isMine
+                  ? '1px solid rgba(220,38,38,0.25)'
+                  : '1px solid rgba(255,255,255,0.4)',
+                borderRadius: isMine ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                padding: '10px 13px',
+                boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
+              }}>
+                <p style={{ fontSize: 13, color: 'rgba(30,10,10,0.88)', lineHeight: 1.45 }}>
+                  {msg.text}
+                </p>
+                <span style={{ fontSize: 10, color: 'rgba(30,10,10,0.38)', display: 'block', marginTop: 4, textAlign: isMine ? 'right' : 'left' }}>
+                  {msg.time}
+                </span>
               </div>
-            )}
-            <div className={`max-w-[70%] p-3 rounded-2xl ${
-              msg.isTeacher 
-                ? 'bg-white border border-gray-200' 
-                : 'bg-diary-blue text-white'
-            }`}>
-              <p className={`text-sm ${msg.isTeacher ? 'text-gray-800' : 'text-white'}`}>
-                {msg.text}
-              </p>
-              <span className={`text-xs mt-1 block ${
-                msg.isTeacher ? 'text-gray-500' : 'text-white/70'
-              }`}>
-                {msg.time}
-              </span>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Поле ввода */}
-      <div className="bg-white border-t border-gray-200 p-4">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Написать сообщение..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-diary-blue"
-            onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-          />
-          <button
-            onClick={sendMessage}
-            className="bg-diary-blue text-white p-2 rounded-full hover:bg-diary-blue/90 transition-colors"
-          >
-            <Icon name="Send" size={20} />
-          </button>
-        </div>
+      <div style={{
+        background: 'rgba(255,255,255,0.12)',
+        backdropFilter: 'blur(32px)',
+        WebkitBackdropFilter: 'blur(32px)',
+        borderRadius: 20,
+        border: '1px solid rgba(255,255,255,0.25)',
+        padding: '10px 12px',
+        display: 'flex',
+        gap: 8,
+        alignItems: 'center',
+      }}>
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Написать сообщение..."
+          style={{
+            flex: 1,
+            background: 'rgba(255,255,255,0.5)',
+            border: '1px solid rgba(220,38,38,0.2)',
+            borderRadius: 50,
+            padding: '8px 14px',
+            fontSize: 13,
+            outline: 'none',
+            color: 'rgba(30,10,10,0.85)',
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+        />
+        <button
+          onClick={sendMessage}
+          style={{
+            background: 'rgba(220,38,38,0.85)',
+            border: 'none',
+            borderRadius: '50%',
+            width: 38, height: 38,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: 'white',
+            cursor: 'pointer',
+            flexShrink: 0,
+          }}
+        >
+          <Icon name="Send" size={17} />
+        </button>
       </div>
     </div>
   );
