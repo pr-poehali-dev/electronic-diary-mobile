@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 
 interface Purchase {
@@ -17,6 +16,15 @@ interface SchoolCardContentProps {
   setTopUpAmount: (amount: string) => void;
 }
 
+const glass = {
+  background: 'rgba(255,255,255,0.12)',
+  backdropFilter: 'blur(32px) saturate(1.8)',
+  WebkitBackdropFilter: 'blur(32px) saturate(1.8)',
+  borderRadius: 20,
+  border: '1px solid rgba(255,255,255,0.25)',
+  boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.4) inset',
+};
+
 const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
   showTopUp,
   setShowTopUp,
@@ -33,45 +41,82 @@ const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
   ];
 
   const TopUpModal = () => (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl p-6 w-full max-w-sm">
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4"
+      style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)' }}>
+      <div style={{
+        ...glass,
+        background: 'rgba(255,255,255,0.72)',
+        backdropFilter: 'blur(40px) saturate(2)',
+        WebkitBackdropFilter: 'blur(40px) saturate(2)',
+        padding: '24px',
+        width: '100%',
+        maxWidth: 360,
+      }}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold">Пополнить карту</h3>
+          <h3 className="text-lg font-bold" style={{ color: 'rgba(30,10,10,0.9)' }}>Пополнить карту</h3>
           <button onClick={() => setShowTopUp(false)}>
-            <Icon name="X" size={24} className="text-gray-500" />
+            <Icon name="X" size={22} style={{ color: 'rgba(0,0,0,0.4)' }} />
           </button>
         </div>
-        
+
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Сумма пополнения</label>
+            <label className="block text-sm font-medium mb-2" style={{ color: 'rgba(30,10,10,0.7)' }}>Сумма пополнения</label>
             <input
               type="number"
               value={topUpAmount}
               onChange={(e) => setTopUpAmount(e.target.value)}
               placeholder="Введите сумму"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-diary-blue"
+              style={{
+                width: '100%',
+                padding: '10px 14px',
+                background: 'rgba(255,255,255,0.5)',
+                border: '1px solid rgba(255,255,255,0.5)',
+                borderRadius: 12,
+                outline: 'none',
+                fontSize: 15,
+                color: 'rgba(30,10,10,0.9)',
+              }}
             />
           </div>
-          
+
           <div className="space-y-2">
-            <p className="text-sm font-medium">Способ оплаты:</p>
-            <button className="w-full p-3 border border-gray-300 rounded-lg flex items-center gap-3 hover:bg-gray-50">
-              <Icon name="CreditCard" className="text-diary-blue" />
-              <span>Банковская карта</span>
-            </button>
-            <button className="w-full p-3 border border-gray-300 rounded-lg flex items-center gap-3 hover:bg-gray-50">
-              <Icon name="Smartphone" className="text-diary-yellow" />
-              <span>СБП (Система быстрых платежей)</span>
-            </button>
+            <p className="text-sm font-medium" style={{ color: 'rgba(30,10,10,0.7)' }}>Способ оплаты:</p>
+            {[
+              { icon: 'CreditCard', label: 'Банковская карта', color: 'rgba(59,130,246,0.85)' },
+              { icon: 'Smartphone', label: 'СБП (Система быстрых платежей)', color: 'rgba(234,179,8,0.85)' },
+            ].map((opt) => (
+              <button key={opt.label} style={{
+                width: '100%',
+                padding: '12px',
+                background: 'rgba(255,255,255,0.35)',
+                border: '1px solid rgba(255,255,255,0.4)',
+                borderRadius: 12,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                cursor: 'pointer',
+              }}>
+                <Icon name={opt.icon} size={20} style={{ color: opt.color }} />
+                <span className="text-sm font-medium" style={{ color: 'rgba(30,10,10,0.85)' }}>{opt.label}</span>
+              </button>
+            ))}
           </div>
-          
-          <button 
-            className="w-full bg-diary-blue text-white py-3 rounded-lg font-medium hover:bg-diary-blue/90"
-            onClick={() => {
-              setShowTopUp(false);
-              setTopUpAmount('');
+
+          <button
+            style={{
+              width: '100%',
+              padding: '13px',
+              background: 'linear-gradient(135deg, rgba(59,130,246,0.85), rgba(99,102,241,0.85))',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: 14,
+              color: '#fff',
+              fontWeight: 700,
+              fontSize: 15,
+              cursor: 'pointer',
             }}
+            onClick={() => { setShowTopUp(false); setTopUpAmount(''); }}
           >
             Пополнить
           </button>
@@ -83,79 +128,112 @@ const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
   return (
     <div className="space-y-4 animate-fade-in">
       {showTopUp && <TopUpModal />}
-      
-      <div className="bg-gradient-to-r from-diary-yellow to-diary-red p-6 rounded-xl text-white relative overflow-hidden">
-        <div className="flex items-center justify-between mb-4">
+
+      {/* Hero — карточка с балансом */}
+      <div style={{
+        ...glass,
+        background: 'linear-gradient(135deg, rgba(234,179,8,0.65) 0%, rgba(220,38,38,0.6) 100%)',
+        border: '1px solid rgba(255,255,255,0.3)',
+        padding: '24px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          position: 'absolute', top: -40, right: -40,
+          width: 160, height: 160, borderRadius: '50%',
+          background: 'rgba(255,255,255,0.1)',
+        }} />
+        <div className="flex items-center justify-between mb-3">
           <div>
-            <h2 className="text-xl font-bold mb-1">Школьная карта</h2>
-            <p className="text-white/90 text-sm">№ 2025090012345</p>
+            <h2 className="text-xl font-bold text-white">Школьная карта</h2>
+            <p className="text-white/70 text-sm">№ 2025090012345</p>
           </div>
-          <Icon name="CreditCard" size={32} className="text-white/80" />
+          <Icon name="CreditCard" size={32} style={{ color: 'rgba(255,255,255,0.75)' }} />
         </div>
-        
-        <div className="mb-4">
-          <p className="text-white/80 text-sm">Баланс</p>
-          <p className="text-3xl font-bold">{balance.toFixed(2)} ₽</p>
-        </div>
-        
-        <button 
+        <p className="text-white/70 text-sm">Баланс</p>
+        <p className="text-3xl font-black text-white mb-4">{balance.toFixed(2)} ₽</p>
+        <button
           onClick={() => setShowTopUp(true)}
-          className="bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-lg font-medium hover:bg-white/30 transition-colors"
+          style={{
+            background: 'rgba(255,255,255,0.22)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.35)',
+            borderRadius: 12,
+            padding: '8px 18px',
+            color: '#fff',
+            fontWeight: 600,
+            cursor: 'pointer',
+          }}
         >
           Пополнить карту
         </button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icon name="Receipt" className="text-diary-blue" />
-            История покупок
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {purchases.map((purchase, idx) => (
-              <div key={idx} className="flex items-center justify-between p-3 bg-diary-gray rounded-lg">
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-medium text-sm">{purchase.item}</span>
-                    <span className="font-bold text-diary-red">-{purchase.price.toFixed(2)} ₽</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span>{purchase.date}</span>
-                    <span>•</span>
-                    <span>{purchase.time}</span>
-                    <span>•</span>
-                    <span>{purchase.place}</span>
-                  </div>
+      {/* История покупок */}
+      <div style={{ ...glass, padding: '16px' }}>
+        <div className="flex items-center gap-2 mb-3">
+          <Icon name="Receipt" size={18} style={{ color: 'rgba(59,130,246,0.85)' }} />
+          <span className="font-bold text-base" style={{ color: 'rgba(30,10,10,0.9)' }}>История покупок</span>
+        </div>
+        <div className="space-y-2">
+          {purchases.map((purchase, idx) => (
+            <div key={idx} style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '10px 12px',
+              background: 'rgba(255,255,255,0.18)',
+              borderRadius: 14,
+              border: '1px solid rgba(255,255,255,0.3)',
+            }}>
+              <div className="flex-1">
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="font-semibold text-sm" style={{ color: 'rgba(30,10,10,0.9)' }}>{purchase.item}</span>
+                  <span className="font-bold text-sm" style={{ color: 'rgba(220,38,38,0.9)' }}>−{purchase.price.toFixed(2)} ₽</span>
+                </div>
+                <div className="flex items-center gap-1 text-xs" style={{ color: 'rgba(0,0,0,0.4)' }}>
+                  <span>{purchase.date}</span>
+                  <span>·</span>
+                  <span>{purchase.time}</span>
+                  <span>·</span>
+                  <span>{purchase.place}</span>
                 </div>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+            </div>
+          ))}
+        </div>
+      </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icon name="TrendingUp" className="text-diary-yellow" />
-            Статистика
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="text-center p-3 bg-diary-blue/10 rounded-lg">
-              <p className="text-2xl font-bold text-diary-blue">4</p>
-              <p className="text-sm text-muted-foreground">Покупок сегодня</p>
-            </div>
-            <div className="text-center p-3 bg-diary-yellow/10 rounded-lg">
-              <p className="text-2xl font-bold text-diary-yellow">410₽</p>
-              <p className="text-sm text-muted-foreground">Потрачено за неделю</p>
-            </div>
+      {/* Статистика */}
+      <div style={{ ...glass, padding: '16px' }}>
+        <div className="flex items-center gap-2 mb-3">
+          <Icon name="TrendingUp" size={18} style={{ color: 'rgba(234,179,8,0.9)' }} />
+          <span className="font-bold text-base" style={{ color: 'rgba(30,10,10,0.9)' }}>Статистика</span>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div style={{
+            textAlign: 'center',
+            padding: '14px',
+            background: 'rgba(59,130,246,0.12)',
+            borderRadius: 14,
+            border: '1px solid rgba(59,130,246,0.2)',
+          }}>
+            <p className="text-2xl font-black" style={{ color: 'rgba(59,130,246,0.9)' }}>4</p>
+            <p className="text-xs mt-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Покупок сегодня</p>
           </div>
-        </CardContent>
-      </Card>
+          <div style={{
+            textAlign: 'center',
+            padding: '14px',
+            background: 'rgba(234,179,8,0.12)',
+            borderRadius: 14,
+            border: '1px solid rgba(234,179,8,0.25)',
+          }}>
+            <p className="text-2xl font-black" style={{ color: 'rgba(180,130,0,0.95)' }}>410 ₽</p>
+            <p className="text-xs mt-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Потрачено за неделю</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 };
