@@ -26,7 +26,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, setActiv
             className={`liquid-glass-btn flex flex-col items-center gap-1 py-2 flex-1 px-0 ${isActive ? 'active' : 'inactive'}`}
           >
             <Icon name={tab.icon} size={20} />
-            <span className="text-[11px] font-medium leading-none">{tab.label}</span>
+            {isActive && <span className="text-[11px] font-medium leading-none">{tab.label}</span>}
           </button>
         );
       })}
