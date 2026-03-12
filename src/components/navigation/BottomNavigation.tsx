@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from '@/components/ui/icon';
+import useClickSound from '@/hooks/use-click-sound';
 
 interface BottomNavigationProps {
   activeTab: string;
@@ -14,7 +15,9 @@ const TABS = [
   { id: 'profile',  icon: 'UserCircle',    label: 'Профиль'    },
 ];
 
-const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, setActiveTab }) => (
+const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, setActiveTab }) => {
+  const playClick = useClickSound();
+  return (
   <div className="liquid-glass-nav fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md px-3 py-2">
     <div className="flex justify-around gap-1">
       {TABS.map((tab) => {
@@ -22,7 +25,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, setActiv
         return (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => { playClick(); setActiveTab(tab.id); }}
             className={`liquid-glass-btn flex flex-col items-center gap-1 py-2 flex-1 px-0 ${isActive ? 'active' : 'inactive'}`}
           >
             <Icon name={tab.icon} size={20} />
@@ -32,6 +35,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab, setActiv
       })}
     </div>
   </div>
-);
+  );
+};
 
 export default BottomNavigation;
