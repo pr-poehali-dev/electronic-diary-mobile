@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
@@ -24,99 +23,101 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
 
   return (
     <div className="space-y-4 animate-fade-in">
-      <div className="bg-diary-red rounded-xl text-white relative overflow-hidden h-[280px] flex flex-col">
-        <div className="absolute top-12 left-4 w-32 h-16 border-4 border-diary-yellow rounded-full opacity-90 transform rotate-12"></div>
-        <div className="absolute top-20 left-8 w-24 h-12 border-3 border-diary-yellow rounded-full opacity-70 transform rotate-6"></div>
-        
-        <div className="relative z-10 p-6 flex-1">
-          <div className="mb-4">
-            <h1 className="text-4xl font-black leading-tight mb-1">
-              Суббота
-            </h1>
-            <h1 className="text-2xl font-black leading-tight mb-1">
-              29/09
-            </h1>
-            <h1 className="text-3xl font-black leading-tight mb-1">
-              Дневник
-            </h1>
-            <p className="text-lg font-bold mb-1">
-              7 уроков
-            </p>
-            <p className="text-lg font-bold">
-              Сентябрь 2025
-            </p>
+
+      {/* === HERO BANNER === */}
+      <div className="poster-card-red relative overflow-hidden diagonal-accent" style={{ minHeight: 260 }}>
+        <div className="poster-stripe" />
+
+        {/* Декоративный жёлтый блок */}
+        <div className="absolute top-0 right-0 w-20 h-full bg-diary-yellow opacity-80"
+          style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)' }} />
+        <div className="absolute top-0 right-16 w-8 h-full bg-[#1a1235] opacity-50"
+          style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)' }} />
+
+        <div className="relative z-10 p-5 pb-8">
+          <div className="inline-block bg-[#1a1235] text-diary-yellow px-3 py-0.5 mb-3" style={{ fontFamily: 'Oswald, sans-serif', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+            Электронный дневник
+          </div>
+          <h1 className="poster-title text-white" style={{ fontSize: 48, lineHeight: 1 }}>
+            Суббота
+          </h1>
+          <h2 className="poster-title text-diary-yellow" style={{ fontSize: 28, lineHeight: 1.1, marginTop: 4 }}>
+            29 / 09
+          </h2>
+          <div className="mt-4 flex gap-3 items-end">
+            <div>
+              <div className="poster-title text-white" style={{ fontSize: 22 }}>Дневник</div>
+              <div className="text-white/80 font-semibold text-sm mt-1">7 уроков · Сентябрь 2025</div>
+            </div>
           </div>
         </div>
-        
-        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-gray-400 via-gray-300 to-gray-200 opacity-90">
-          <div className="absolute bottom-0 w-full h-12 bg-gradient-to-r from-blue-200 via-gray-300 to-blue-100"></div>
-          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 400 64" fill="none">
-            <path d="M0 64 L50 20 L100 35 L150 15 L200 30 L250 10 L300 25 L350 15 L400 30 L400 64 Z" 
-                  fill="#6B7280" opacity="0.8"/>
-            <path d="M0 64 L80 30 L140 45 L200 25 L280 40 L340 20 L400 35 L400 64 Z" 
-                  fill="#9CA3AF" opacity="0.6"/>
-          </svg>
+
+        {/* Нижняя граница */}
+        <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-diary-yellow" />
+      </div>
+
+      {/* === ОЦЕНКИ === */}
+      <div
+        className="poster-card cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 transition-transform"
+        style={{ transition: 'box-shadow 0.15s, transform 0.15s' }}
+        onClick={() => navigate('/grades')}
+      >
+        <div className="bg-[#1a1235] px-4 py-2 flex items-center justify-between">
+          <span className="poster-title text-diary-yellow" style={{ fontSize: 16 }}>
+            Последние оценки
+          </span>
+          <Icon name="ChevronRight" size={18} className="text-diary-yellow" />
+        </div>
+        <div className="p-3 space-y-2">
+          {grades.map((grade, idx) => (
+            <div key={idx} className="flex items-center justify-between border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+              <span className="font-semibold text-[#1a1235] text-sm">{grade.subject}</span>
+              <div className="flex items-center gap-2">
+                <span
+                  className="poster-badge text-xs"
+                  style={{
+                    color: grade.grade >= 4 ? '#1a1235' : '#DC2626',
+                    borderColor: grade.grade >= 4 ? '#1a1235' : '#DC2626',
+                    background: grade.grade >= 4 ? '#EAB308' : 'transparent',
+                  }}
+                >
+                  {grade.grade}
+                </span>
+                <span className="text-xs text-gray-400">{grade.date}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <Card 
-        className="cursor-pointer hover:shadow-lg transition-shadow"
-        onClick={() => navigate('/grades')}
-      >
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icon name="BookOpen" className="text-diary-red" />
-            Последние оценки
-            <Icon name="ChevronRight" size={20} className="ml-auto text-gray-400" />
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            {grades.map((grade, idx) => (
-              <div key={idx} className="flex items-center justify-between p-2 bg-diary-gray rounded-lg">
-                <span className="font-medium">{grade.subject}</span>
-                <div className="flex items-center gap-2">
-                  <Badge variant={grade.grade >= 4 ? "default" : "destructive"}>
-                    {grade.grade}
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">{grade.date}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icon name="Clock" className="text-diary-blue" />
+      {/* === РАСПИСАНИЕ === */}
+      <div className="poster-card">
+        <div className="bg-diary-yellow px-4 py-2 flex items-center gap-2" style={{ borderBottom: '3px solid #1a1235' }}>
+          <Icon name="Clock" size={16} className="text-[#1a1235]" />
+          <span className="poster-title text-[#1a1235]" style={{ fontSize: 16 }}>
             Расписание на сегодня
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {schedule.slice(0, 3).map((lesson, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-3 bg-diary-gray rounded-lg">
-                <div className="text-sm font-mono text-diary-blue font-bold">
-                  {lesson.time}
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium">{lesson.subject}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {lesson.teacher} • Каб. {lesson.room}
-                  </div>
-                </div>
-                {lesson.isChanged && (
-                  <Badge className="bg-diary-yellow text-black">
-                    Изменено
-                  </Badge>
-                )}
+          </span>
+        </div>
+        <div className="p-3 space-y-2">
+          {schedule.slice(0, 3).map((lesson, idx) => (
+            <div key={idx} className="flex items-center gap-3 border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+              <div className="text-xs font-mono font-black text-[#1a1235] bg-gray-100 px-2 py-1 min-w-[52px] text-center" style={{ border: '2px solid #1a1235' }}>
+                {lesson.time}
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <div className="flex-1">
+                <div className="font-bold text-sm text-[#1a1235]">{lesson.subject}</div>
+                <div className="text-xs text-gray-500">{lesson.teacher} · каб. {lesson.room}</div>
+              </div>
+              {lesson.isChanged && (
+                <span className="poster-badge text-[10px] bg-diary-yellow text-[#1a1235] border-[#1a1235]">
+                  Изменено
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 };
