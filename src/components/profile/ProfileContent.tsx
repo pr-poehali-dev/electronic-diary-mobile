@@ -4,6 +4,7 @@ import { LoginForm } from '@/components/extensions/auth-email/LoginForm';
 import { RegisterForm } from '@/components/extensions/auth-email/RegisterForm';
 import { UserProfile } from '@/components/extensions/auth-email/UserProfile';
 import { ResetPasswordForm } from '@/components/extensions/auth-email/ResetPasswordForm';
+import SettingsContent from '@/components/profile/SettingsContent';
 
 const AUTH_URL = "https://functions.poehali.dev/6aff0bd6-3e2f-42fe-b6d9-f23fdefea356";
 
@@ -12,6 +13,7 @@ type View = 'login' | 'register' | 'reset';
 const ProfileContent = () => {
   const [view, setView] = useState<View>('login');
   const [resetSuccess, setResetSuccess] = useState<string | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   const auth = useAuth({
     apiUrls: {
@@ -24,12 +26,21 @@ const ProfileContent = () => {
     },
   });
 
+  if (showSettings) {
+    return (
+      <div className="pt-4">
+        <SettingsContent onBack={() => setShowSettings(false)} />
+      </div>
+    );
+  }
+
   if (auth.isAuthenticated && auth.user) {
     return (
       <div className="pt-4">
         <UserProfile
           user={auth.user}
           onLogout={auth.logout}
+          onSettingsClick={() => setShowSettings(true)}
           isLoading={auth.isLoading}
           className="w-full"
         />

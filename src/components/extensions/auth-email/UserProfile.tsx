@@ -28,6 +28,7 @@ interface User {
 interface UserProfileProps {
   user: User;
   onLogout: () => Promise<void>;
+  onSettingsClick?: () => void;
   isLoading?: boolean;
   className?: string;
 }
@@ -35,6 +36,7 @@ interface UserProfileProps {
 export function UserProfile({
   user,
   onLogout,
+  onSettingsClick,
   isLoading = false,
   className = "",
 }: UserProfileProps): React.ReactElement {
@@ -145,9 +147,58 @@ export function UserProfile({
             </div>
           )}
         </div>
+
+        {/* ID аккаунта */}
+        <div
+          style={{
+            background: 'rgba(220,38,38,0.07)',
+            border: '1px solid rgba(220,38,38,0.18)',
+            borderRadius: 14,
+            padding: '10px 14px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <p style={{ fontSize: 11, color: 'rgba(30,10,10,0.45)', marginBottom: 2 }}>Мой ID аккаунта</p>
+            <p style={{ fontWeight: 700, fontSize: 20, color: '#dc2626', letterSpacing: '0.04em' }}>#{user.id}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => { navigator.clipboard.writeText(String(user.id)); }}
+            title="Скопировать ID"
+            style={{
+              background: 'rgba(220,38,38,0.12)',
+              border: '1px solid rgba(220,38,38,0.22)',
+              borderRadius: 10,
+              padding: '6px 10px',
+              color: '#dc2626',
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+            }}
+          >
+            <Icon name="Copy" size={13} />
+            Копировать
+          </button>
+        </div>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="flex-col gap-3">
+        {onSettingsClick && (
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={onSettingsClick}
+          >
+            <Icon name="Settings" size={16} className="mr-2" />
+            Настройки
+          </Button>
+        )}
         <Button
           variant="outline"
           className="w-full text-red-500 border-red-200 hover:bg-red-50"
