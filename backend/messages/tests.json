@@ -1,0 +1,29 @@
+{
+  "tests": [
+    {
+      "name": "Find non-existent user",
+      "method": "GET",
+      "path": "/?action=find_user&user_id=999999",
+      "expectedStatus": 404,
+      "expectedBody": {"error": "Пользователь не найден"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "List chats for user 1",
+      "method": "GET",
+      "path": "/?action=list&user_id=1",
+      "expectedStatus": 200,
+      "expectedBody": {"chats": []},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Send message missing fields",
+      "method": "POST",
+      "path": "/?action=send",
+      "body": {"from_id": 1, "text": "Привет"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "from_id, to_id, text required"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

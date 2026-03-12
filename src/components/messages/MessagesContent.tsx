@@ -13,6 +13,7 @@ interface Message {
 interface MessagesContentProps {
   messages: Message[];
   onChatOpen: (message: Message) => void;
+  onNewChat?: () => void;
 }
 
 const ROLE_COLORS: Record<string, { bg: string; border: string; text: string; label: string }> = {
@@ -30,7 +31,7 @@ const ROLE_COLORS: Record<string, { bg: string; border: string; text: string; la
   },
 };
 
-const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen }) => {
+const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen, onNewChat }) => {
   const unread = messages.filter(m => !m.isRead).length;
 
   return (
@@ -54,8 +55,8 @@ const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen 
         <h2 className="text-center text-lg font-bold mt-0.5" style={{ color: 'rgba(30,10,10,0.9)' }}>
           Сообщения
         </h2>
-        {unread > 0 && (
-          <div className="flex justify-center mt-2">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 10 }}>
+          {unread > 0 && (
             <span style={{
               background: 'rgba(220,38,38,0.12)',
               border: '1px solid rgba(220,38,38,0.25)',
@@ -67,8 +68,29 @@ const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen 
             }}>
               {unread} непрочитанных
             </span>
-          </div>
-        )}
+          )}
+          {onNewChat && (
+            <button
+              onClick={onNewChat}
+              style={{
+                background: 'rgba(220,38,38,0.85)',
+                border: 'none',
+                borderRadius: 50,
+                padding: '5px 14px',
+                color: 'white',
+                fontWeight: 700,
+                fontSize: 12,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 5,
+              }}
+            >
+              <Icon name="Plus" size={13} />
+              Новый чат
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Список переписок */}
