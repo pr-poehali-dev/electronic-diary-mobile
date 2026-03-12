@@ -73,7 +73,7 @@ const Index = () => {
       time: 'Вчера',
       isRead: false,
       role: 'student' as const,
-      avatar: 'https://cdn.poehali.dev/files/a5ff32d1-9b44-4f13-92f8-465fa0ded17e.jpg'
+      avatar: 'https://cdn.poehali.dev/projects/7f76478c-2204-4f4a-9fca-9c377ba2402c/bucket/b26d0b01-0508-41b0-9e7e-b267c963644b.jpg'
     },
     {
       from: 'Максим Ефимов',
