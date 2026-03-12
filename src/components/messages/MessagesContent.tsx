@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 
 interface Message {
@@ -16,41 +17,55 @@ interface MessagesContentProps {
 
 const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen }) => (
   <div className="space-y-4 animate-fade-in">
-
-    {/* Hero */}
-    <div className="glass-red p-5 relative overflow-hidden">
-      <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full"
-        style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)' }} />
-      <h2 className="text-2xl font-bold text-white relative z-10">Сообщения</h2>
-      <p className="text-white/70 text-sm mt-1 relative z-10">5 новых сообщений</p>
+    <div className="bg-gradient-to-r from-diary-red to-red-600 p-4 rounded-xl text-white relative overflow-hidden">
+      <h2 className="text-xl font-bold mb-2">Сообщения</h2>
+      <p className="text-white/90">5 новых сообщений</p>
+      
+      {/* Стикер в правом верхнем углу */}
+      <div className="absolute -top-4 -right-4 w-24 h-24 transform rotate-12">
+        <img 
+          src="https://cdn.poehali.dev/files/93758476-4e03-4819-9cc0-77c0592bfd73.jpg" 
+          alt="sticker"
+          className="w-full h-full object-contain drop-shadow-lg"
+          style={{
+            filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
+            mixBlendMode: 'multiply'
+          }}
+        />
+      </div>
     </div>
 
-    {/* Список */}
     <div className="space-y-3">
       {messages.map((message, idx) => (
-        <button
-          key={idx}
-          className={`glass w-full text-left transition-transform hover:scale-[1.01] ${!message.isRead ? 'ring-1 ring-white/20' : ''}`}
-          onClick={() => onChatOpen(message)}
-        >
-          <div className="flex items-center gap-3 p-4">
-            <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0"
-              style={{ border: '2px solid rgba(234,179,8,0.6)', boxShadow: '0 0 12px rgba(234,179,8,0.2)' }}>
-              <img src={message.avatar} alt={message.from} className="w-full h-full object-cover" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="font-semibold text-white text-sm truncate">{message.from}</span>
-                {!message.isRead && (
-                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#DC2626', boxShadow: '0 0 6px #DC2626' }} />
-                )}
+        <Card key={idx} className={`${!message.isRead ? 'ring-2 ring-diary-red/20' : ''}`}>
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-diary-yellow flex-shrink-0">
+                <img 
+                  src={message.avatar} 
+                  alt={message.from}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <p className="text-white/60 text-xs truncate">{message.subject}</p>
-              <span className="text-white/40 text-xs">{message.time}</span>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-medium">{message.from}</span>
+                  {!message.isRead && (
+                    <div className="w-2 h-2 bg-diary-red rounded-full" />
+                  )}
+                </div>
+                <p className="text-sm text-muted-foreground mb-2">{message.subject}</p>
+                <span className="text-xs text-diary-blue">{message.time}</span>
+              </div>
+              <button 
+                onClick={() => onChatOpen(message)}
+                className="text-muted-foreground hover:text-diary-blue transition-colors"
+              >
+                <Icon name="ChevronRight" size={16} />
+              </button>
             </div>
-            <Icon name="ChevronRight" size={16} className="text-white/30 flex-shrink-0" />
-          </div>
-        </button>
+          </CardContent>
+        </Card>
       ))}
     </div>
   </div>

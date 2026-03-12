@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 import { useNavigate } from 'react-router-dom';
@@ -23,85 +24,99 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
 
   return (
     <div className="space-y-4 animate-fade-in">
-
-      {/* Hero */}
-      <div className="glass-red relative overflow-hidden p-6" style={{ minHeight: 220 }}>
-        <div className="absolute top-8 right-8 w-28 h-28 rounded-full"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)' }} />
-        <div className="absolute top-16 right-16 w-14 h-14 rounded-full"
-          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)' }} />
-
-        <div className="relative z-10">
-          <p className="text-white/60 text-sm font-medium mb-1">Электронный дневник</p>
-          <h1 className="text-5xl font-black text-white leading-tight">Суббота</h1>
-          <h2 className="text-2xl font-bold text-white/80 mt-1">29 сентября</h2>
-          <div className="flex gap-3 mt-4">
-            <span className="px-3 py-1 rounded-full text-sm font-semibold text-white"
-              style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.25)' }}>
+      <div className="bg-diary-red rounded-xl text-white relative overflow-hidden h-[280px] flex flex-col">
+        <div className="absolute top-12 left-4 w-32 h-16 border-4 border-diary-yellow rounded-full opacity-90 transform rotate-12"></div>
+        <div className="absolute top-20 left-8 w-24 h-12 border-3 border-diary-yellow rounded-full opacity-70 transform rotate-6"></div>
+        
+        <div className="relative z-10 p-6 flex-1">
+          <div className="mb-4">
+            <h1 className="text-4xl font-black leading-tight mb-1">
+              Суббота
+            </h1>
+            <h1 className="text-2xl font-black leading-tight mb-1">
+              29/09
+            </h1>
+            <h1 className="text-3xl font-black leading-tight mb-1">
+              Дневник
+            </h1>
+            <p className="text-lg font-bold mb-1">
               7 уроков
-            </span>
-            <span className="px-3 py-1 rounded-full text-sm font-semibold text-white"
-              style={{ background: 'rgba(255,255,255,0.18)', border: '1px solid rgba(255,255,255,0.25)' }}>
-              2025–2026
-            </span>
+            </p>
+            <p className="text-lg font-bold">
+              Сентябрь 2025
+            </p>
           </div>
+        </div>
+        
+        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-gray-400 via-gray-300 to-gray-200 opacity-90">
+          <div className="absolute bottom-0 w-full h-12 bg-gradient-to-r from-blue-200 via-gray-300 to-blue-100"></div>
+          <svg className="absolute bottom-0 w-full h-16" viewBox="0 0 400 64" fill="none">
+            <path d="M0 64 L50 20 L100 35 L150 15 L200 30 L250 10 L300 25 L350 15 L400 30 L400 64 Z" 
+                  fill="#6B7280" opacity="0.8"/>
+            <path d="M0 64 L80 30 L140 45 L200 25 L280 40 L340 20 L400 35 L400 64 Z" 
+                  fill="#9CA3AF" opacity="0.6"/>
+          </svg>
         </div>
       </div>
 
-      {/* Оценки */}
-      <div
-        className="glass cursor-pointer hover:scale-[1.01] transition-transform"
+      <Card 
+        className="cursor-pointer hover:shadow-lg transition-shadow"
         onClick={() => navigate('/grades')}
       >
-        <div className="flex items-center justify-between px-4 pt-4 pb-2">
-          <div className="flex items-center gap-2">
-            <Icon name="BookOpen" size={18} className="text-white/70" />
-            <span className="font-semibold text-white">Последние оценки</span>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Icon name="BookOpen" className="text-diary-red" />
+            Последние оценки
+            <Icon name="ChevronRight" size={20} className="ml-auto text-gray-400" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {grades.map((grade, idx) => (
+              <div key={idx} className="flex items-center justify-between p-2 bg-diary-gray rounded-lg">
+                <span className="font-medium">{grade.subject}</span>
+                <div className="flex items-center gap-2">
+                  <Badge variant={grade.grade >= 4 ? "default" : "destructive"}>
+                    {grade.grade}
+                  </Badge>
+                  <span className="text-sm text-muted-foreground">{grade.date}</span>
+                </div>
+              </div>
+            ))}
           </div>
-          <Icon name="ChevronRight" size={18} className="text-white/40" />
-        </div>
-        <div className="px-4 pb-4 space-y-2">
-          {grades.map((grade, idx) => (
-            <div key={idx} className="glass-row flex items-center justify-between px-3 py-2">
-              <span className="text-white/90 text-sm font-medium">{grade.subject}</span>
-              <div className="flex items-center gap-2">
-                <span className={`text-sm font-bold px-2 py-0.5 rounded-lg ${
-                  grade.grade >= 4 ? 'text-green-300' : 'text-red-300'
-                }`}>
-                  {grade.grade}
-                </span>
-                <span className="text-white/40 text-xs">{grade.date}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
-      {/* Расписание */}
-      <div className="glass">
-        <div className="flex items-center gap-2 px-4 pt-4 pb-2">
-          <Icon name="Clock" size={18} className="text-white/70" />
-          <span className="font-semibold text-white">Расписание на сегодня</span>
-        </div>
-        <div className="px-4 pb-4 space-y-2">
-          {schedule.slice(0, 3).map((lesson, idx) => (
-            <div key={idx} className="glass-row flex items-center gap-3 px-3 py-2">
-              <span className="text-xs font-mono font-bold text-white/50 min-w-[52px]">{lesson.time}</span>
-              <div className="flex-1">
-                <div className="text-white/90 text-sm font-medium">{lesson.subject}</div>
-                <div className="text-white/50 text-xs">{lesson.teacher} · каб. {lesson.room}</div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Icon name="Clock" className="text-diary-blue" />
+            Расписание на сегодня
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-3">
+            {schedule.slice(0, 3).map((lesson, idx) => (
+              <div key={idx} className="flex items-center gap-3 p-3 bg-diary-gray rounded-lg">
+                <div className="text-sm font-mono text-diary-blue font-bold">
+                  {lesson.time}
+                </div>
+                <div className="flex-1">
+                  <div className="font-medium">{lesson.subject}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {lesson.teacher} • Каб. {lesson.room}
+                  </div>
+                </div>
+                {lesson.isChanged && (
+                  <Badge className="bg-diary-yellow text-black">
+                    Изменено
+                  </Badge>
+                )}
               </div>
-              {lesson.isChanged && (
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full text-yellow-300"
-                  style={{ background: 'rgba(234,179,8,0.2)', border: '1px solid rgba(234,179,8,0.35)' }}>
-                  Изменено
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
