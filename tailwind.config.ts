@@ -108,8 +108,7 @@ export default {
 				'scale-in': 'scale-in 0.2s ease-out'
 			},
 			fontFamily: {
-				'sans': ['Open Sans', 'system-ui', 'sans-serif'],
-				'poster': ['Oswald', 'Impact', 'Arial Narrow', 'sans-serif'],
+				'sans': ['Open Sans', 'system-ui', 'sans-serif']
 			}
 		}
 	},
