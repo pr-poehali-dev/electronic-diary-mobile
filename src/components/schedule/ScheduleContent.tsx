@@ -75,7 +75,10 @@ const SUBJECT_COLORS: Record<string, { bg: string; border: string; icon: string 
   'Информатика':     { bg: 'rgba(99,102,241,0.18)',  border: 'rgba(99,102,241,0.4)',  icon: '💻' },
   'ОБЖ':             { bg: 'rgba(234,88,12,0.18)',   border: 'rgba(234,88,12,0.4)',   icon: '🛡️' },
   'География':       { bg: 'rgba(16,185,129,0.18)',  border: 'rgba(16,185,129,0.4)',  icon: '🌐' },
-  'Инд. проект':     { bg: 'rgba(139,92,246,0.18)',  border: 'rgba(139,92,246,0.4)',  icon: '💡' },
+  'Инд. проект':        { bg: 'rgba(139,92,246,0.18)',  border: 'rgba(139,92,246,0.4)',  icon: '💡' },
+  'Изб. вопросы мат.': { bg: 'rgba(168,85,247,0.18)',  border: 'rgba(168,85,247,0.4)',  icon: '🔢' },
+  'Вер. и стат.':       { bg: 'rgba(168,85,247,0.18)',  border: 'rgba(168,85,247,0.4)',  icon: '📊' },
+  'Лит. мастерская':    { bg: 'rgba(236,72,153,0.18)',  border: 'rgba(236,72,153,0.4)',  icon: '✍️' },
 };
 
 const getColor = (subject: string) =>
