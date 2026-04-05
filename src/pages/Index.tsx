@@ -19,11 +19,13 @@ const Index = () => {
   const [showNewChat, setShowNewChat] = useState(false);
 
   const schedule = [
-    { time: '08:00', subject: 'Математика', teacher: 'Иванова А.П.', room: '204', isChanged: false },
-    { time: '09:00', subject: 'Русский язык', teacher: 'Петрова М.И.', room: '105', isChanged: true },
-    { time: '10:00', subject: 'История', teacher: 'Сидоров В.Н.', room: '301', isChanged: false },
-    { time: '11:00', subject: 'Физика', teacher: 'Козлова Е.А.', room: '208', isChanged: false },
-    { time: '12:00', subject: 'Химия', teacher: 'Морозов И.С.', room: '102', isChanged: true },
+    { time: '8:00',  subject: 'Русский язык',    teacher: 'Пищур С.А.',     room: '205', isChanged: false },
+    { time: '8:55',  subject: 'Английский язык', teacher: 'Громова Т.С.',   room: '109', isChanged: false },
+    { time: '9:50',  subject: 'Английский язык', teacher: 'Громова Т.С.',   room: '109', isChanged: false },
+    { time: '10:55', subject: 'Обществознание',  teacher: 'Зорина А.В.',    room: '416', isChanged: false },
+    { time: '11:50', subject: 'Обществознание',  teacher: 'Зорина А.В.',    room: '416', isChanged: false },
+    { time: '12:45', subject: 'Инд. проект',     teacher: 'Вайнер Е.И.',    room: '105', isChanged: false },
+    { time: '13:40', subject: 'Русский язык',    teacher: 'Пищур С.А.',     room: '205', isChanged: false },
   ];
 
   const messages = [
