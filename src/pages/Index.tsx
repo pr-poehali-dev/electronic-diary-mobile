@@ -65,7 +65,8 @@ const Index = () => {
       time: '08:20', 
       isRead: true,
       role: 'student' as const,
-      avatar: 'https://cdn.poehali.dev/files/b394fa1c-cfef-4be3-8714-181a88e2e399.jpg'
+      avatar: '',
+      avatarColor: '#4f8ef7'
     },
     {
       from: 'Карина Белова',
@@ -73,7 +74,8 @@ const Index = () => {
       time: 'Вчера',
       isRead: false,
       role: 'student' as const,
-      avatar: 'https://cdn.poehali.dev/projects/7f76478c-2204-4f4a-9fca-9c377ba2402c/bucket/b26d0b01-0508-41b0-9e7e-b267c963644b.jpg'
+      avatar: '',
+      avatarColor: '#e04f8e'
     },
     {
       from: 'Максим Ефимов',
@@ -81,7 +83,8 @@ const Index = () => {
       time: 'Вчера',
       isRead: true,
       role: 'student' as const,
-      avatar: 'https://cdn.poehali.dev/files/141b5ec4-0ddf-4efe-a301-a34a39fdb83c.jpg'
+      avatar: '',
+      avatarColor: '#4fb86b'
     },
     {
       from: 'Алина Романова',
@@ -89,7 +92,8 @@ const Index = () => {
       time: 'Пн',
       isRead: true,
       role: 'student' as const,
-      avatar: 'https://cdn.poehali.dev/files/6c7e1dfb-cebc-4026-b408-d2a276f38142.jpg'
+      avatar: '',
+      avatarColor: '#f5a623'
     },
     {
       from: 'Денис Краснов',
@@ -97,7 +101,8 @@ const Index = () => {
       time: 'Пн',
       isRead: false,
       role: 'student' as const,
-      avatar: 'https://cdn.poehali.dev/files/b394fa1c-cfef-4be3-8714-181a88e2e399.jpg'
+      avatar: '',
+      avatarColor: '#9b59b6'
     },
   ];
 

@@ -13,8 +13,18 @@ interface Chat {
   subject: string;
   time: string;
   avatar: string;
+  avatarColor?: string;
   role: 'teacher' | 'student';
 }
+
+const DefaultAvatar: React.FC<{ color: string; size?: number }> = ({ color, size = 34 }) => (
+  <svg width={size} height={size} viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="26" cy="26" r="26" fill={color} />
+    <ellipse cx="26" cy="48" rx="17" ry="11" fill="white" fillOpacity="0.25" />
+    <circle cx="26" cy="19" r="10" fill="white" fillOpacity="0.92" />
+    <ellipse cx="26" cy="44" rx="15" ry="9" fill="white" fillOpacity="0.75" />
+  </svg>
+);
 
 interface ChatDialogProps {
   chat: Chat;
@@ -53,9 +63,9 @@ const CHAT_DIALOGS: Record<string, ChatMessage[]> = {
   ],
   'Сидни Прескотт': [
     { text: 'Привет! Помнишь про экскурсию в музей изобразительных искусств? Надо сдать деньги до среды.', isTeacher: false, time: '08:15' },
-    { text: 'Да помню! Сколько там было?', isTeacher: false, time: '08:18' },
-    { text: 'Привет! 350 рублей, сдаём старосте.', isTeacher: false, time: '08:20' },
-    { text: 'Окей, занесу завтра! Говорят, там классные импрессионисты?', isTeacher: false, time: '08:22' },
+    { text: 'Да помню! Сколько там было?', isTeacher: true, time: '08:18' },
+    { text: '350 рублей, сдаём старосте.', isTeacher: false, time: '08:20' },
+    { text: 'Окей, занесу завтра! Говорят, там классные импрессионисты?', isTeacher: true, time: '08:22' },
     { text: 'Да, и современное искусство тоже! Будет весело.', isTeacher: false, time: '08:24' },
   ],
   'Карина Белова': [
@@ -140,7 +150,11 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
             border: isStudentChat ? '2px solid rgba(59,130,246,0.5)' : '2px solid rgba(220,38,38,0.4)',
             flexShrink: 0,
           }}>
-            <img src={chat.avatar} alt={chat.from} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            {chat.avatar ? (
+              <img src={chat.avatar} alt={chat.from} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <DefaultAvatar color={chat.avatarColor || '#4f8ef7'} size={46} />
+            )}
           </div>
 
           <div style={{ flex: 1 }}>
@@ -182,10 +196,14 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
                   width: 34, height: 34,
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  border: '2px solid rgba(220,38,38,0.3)',
+                  border: isStudentChat ? '2px solid rgba(59,130,246,0.3)' : '2px solid rgba(220,38,38,0.3)',
                   flexShrink: 0,
                 }}>
-                  <img src={chat.avatar} alt={chat.from} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {chat.avatar ? (
+                    <img src={chat.avatar} alt={chat.from} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : (
+                    <DefaultAvatar color={chat.avatarColor || '#4f8ef7'} size={34} />
+                  )}
                 </div>
               )}
               <div style={{

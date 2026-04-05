@@ -7,8 +7,18 @@ interface Message {
   time: string;
   isRead: boolean;
   avatar: string;
+  avatarColor?: string;
   role: 'teacher' | 'student';
 }
+
+const DefaultAvatar: React.FC<{ color: string; size?: number }> = ({ color, size = 52 }) => (
+  <svg width={size} height={size} viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="26" cy="26" r="26" fill={color} />
+    <ellipse cx="26" cy="48" rx="17" ry="11" fill="white" fillOpacity="0.25" />
+    <circle cx="26" cy="19" r="10" fill="white" fillOpacity="0.92" />
+    <ellipse cx="26" cy="44" rx="15" ry="9" fill="white" fillOpacity="0.75" />
+  </svg>
+);
 
 interface MessagesContentProps {
   messages: Message[];
@@ -129,11 +139,15 @@ const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen,
                 border: `2px solid ${role.border}`,
                 flexShrink: 0,
               }}>
-                <img
-                  src={message.avatar}
-                  alt={message.from}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
+                {message.avatar ? (
+                  <img
+                    src={message.avatar}
+                    alt={message.from}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <DefaultAvatar color={message.avatarColor || '#4f8ef7'} size={52} />
+                )}
               </div>
 
               {/* Инфо */}
