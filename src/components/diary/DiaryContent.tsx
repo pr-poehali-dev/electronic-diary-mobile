@@ -138,9 +138,10 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
         <div style={{
           ...glass,
           padding: '16px',
+          cursor: 'pointer',
           background: 'linear-gradient(135deg, rgba(245,200,0,0.2) 0%, rgba(245,200,0,0.07) 100%)',
           border: '1.5px solid rgba(245,200,0,0.35)',
-        }}>
+        }} onClick={() => navigate('/homework')}>
           <div style={{
             width: 40, height: 40, borderRadius: 12,
             background: '#F5C800',
@@ -148,10 +149,10 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
             marginBottom: 10,
             boxShadow: '0 4px 14px rgba(245,200,0,0.45)',
           }}>
-            <Icon name="Star" size={20} style={{ color: '#0D1B4B' }} />
+            <Icon name="BookMarked" size={20} style={{ color: '#0D1B4B' }} />
           </div>
-          <div style={{ fontWeight: 800, fontSize: 14, color: '#0D1B4B' }}>Рейтинг</div>
-          <div style={{ fontSize: 11, color: 'rgba(13,27,75,0.5)', marginTop: 2 }}>Топ учеников</div>
+          <div style={{ fontWeight: 800, fontSize: 14, color: '#0D1B4B' }}>Домашние</div>
+          <div style={{ fontSize: 11, color: 'rgba(13,27,75,0.5)', marginTop: 2 }}>Задания класса</div>
         </div>
       </div>
 

@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import SplashScreen from "@/components/SplashScreen";
 import Index from "./pages/Index";
 import GradesPage from "./pages/GradesPage";
+import HomeworkPage from "./pages/HomeworkPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/grades" element={<GradesPage />} />
+                <Route path="/homework" element={<HomeworkPage />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
