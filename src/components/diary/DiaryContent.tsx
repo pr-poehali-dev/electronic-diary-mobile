@@ -91,11 +91,11 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
           <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 4 }}>
             Сентябрь 2025
           </p>
-          <h1 style={{ color: '#fff', fontSize: 42, fontWeight: 900, lineHeight: 1, marginBottom: 2, textShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
-            Суббота
+          <h1 style={{ color: '#fff', fontSize: 42, fontWeight: 900, lineHeight: 1, marginBottom: 2, textShadow: '0 2px 12px rgba(0,0,0,0.25)', fontFamily: "'Playfair Display', Georgia, serif" }}>
+            Четверг
           </h1>
           <h2 style={{ color: 'rgba(255,255,255,0.9)', fontSize: 26, fontWeight: 700 }}>
-            29 / 09
+            25 / 09
           </h2>
           <div style={{
             marginTop: 14,
@@ -167,7 +167,7 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
           }}>
             <Icon name="TrendingUp" size={16} style={{ color: '#fff' }} />
           </div>
-          <span style={{ fontWeight: 800, fontSize: 15, color: '#0D1B4B' }}>Последние оценки</span>
+          <span style={{ fontWeight: 800, fontSize: 20, color: '#0D1B4B', fontFamily: "'Playfair Display', Georgia, serif" }}>Последние оценки</span>
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 4 }}>
             <span style={{ fontSize: 11, color: 'rgba(13,27,75,0.4)', fontWeight: 600 }}>Все</span>
             <Icon name="ChevronRight" size={16} style={{ color: 'rgba(13,27,75,0.35)' }} />
@@ -255,6 +255,23 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Подпись проекта */}
+      <div style={{
+        textAlign: 'center',
+        padding: '16px 8px 4px',
+      }}>
+        <p style={{
+          fontSize: 11,
+          color: 'rgba(13,27,75,0.4)',
+          lineHeight: 1.6,
+          fontStyle: 'italic',
+        }}>
+          Продукт проекта «Как дизайн организует внимание»<br />
+          ученика 10 «А» класса ГБОУ школы № 630<br />
+          <span style={{ fontWeight: 700, color: 'rgba(13,27,75,0.55)' }}>Дрёмова Александра</span>
+        </p>
       </div>
 
     </div>
