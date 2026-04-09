@@ -109,9 +109,9 @@ const Index = () => {
   ];
 
   const grades = [
-    { subject: 'Математика', grade: 5, date: '25.09' },
-    { subject: 'Русский язык', grade: 4, date: '24.09' },
-    { subject: 'История', grade: 5, date: '23.09' },
+    { subject: 'Математика', grade: 5, date: '25.09', avg: 4.6 },
+    { subject: 'Русский язык', grade: 4, date: '24.09', avg: 3.9 },
+    { subject: 'История', grade: 5, date: '23.09', avg: 4.4 },
   ];
 
   const renderContent = () => {

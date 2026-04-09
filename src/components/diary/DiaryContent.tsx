@@ -14,6 +14,7 @@ interface DiaryContentProps {
     subject: string;
     grade: number;
     date: string;
+    avg?: number;
   }>;
 }
 
@@ -184,7 +185,12 @@ const DiaryContent: React.FC<DiaryContentProps> = ({ schedule, grades }) => {
               borderRadius: 14,
               border: '1px solid rgba(255,255,255,0.35)',
             }}>
-              <span style={{ fontWeight: 600, fontSize: 13, color: '#0D1B4B' }}>{grade.subject}</span>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 5 }}>
+                  <span style={{ fontWeight: 600, fontSize: 13, color: '#0D1B4B' }}>{grade.subject}</span>
+                  {grade.avg !== undefined && (
+                    <span style={{ fontSize: 11, color: 'rgba(13,27,75,0.4)', fontWeight: 500 }}>({grade.avg})</span>
+                  )}
+                </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: 11, color: 'rgba(13,27,75,0.4)' }}>{grade.date}</span>
                 <div style={{
