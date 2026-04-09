@@ -101,44 +101,56 @@ const ScheduleContent: React.FC = () => {
 
       {/* Header */}
       <div style={{
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(32px) saturate(1.8)',
-        WebkitBackdropFilter: 'blur(32px) saturate(1.8)',
-        borderRadius: 20,
-        border: '1px solid rgba(255,255,255,0.25)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.4) inset',
-        padding: '14px 16px',
+        borderRadius: 22,
+        overflow: 'hidden',
+        position: 'relative',
+        background: '#E8000E',
+        boxShadow: '0 6px 32px rgba(232,0,14,0.4)',
+        padding: '20px 22px',
       }}>
-        <p className="text-center text-xs font-medium" style={{ color: 'rgba(220,38,38,0.7)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          10А класс
-        </p>
-        <h2 className="text-center text-lg font-bold mt-0.5" style={{ color: 'rgba(30,10,10,0.9)' }}>
-          Расписание уроков
-        </h2>
+        <div style={{
+          position: 'absolute', top: -30, right: -20,
+          width: 130, height: 240,
+          background: '#F5C800',
+          transform: 'rotate(-18deg)',
+          zIndex: 0,
+        }} />
+        <div style={{
+          position: 'absolute', top: -30, right: -52,
+          width: 130, height: 240,
+          background: '#0D1B4B',
+          transform: 'rotate(-18deg)',
+          zIndex: 0,
+        }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 2 }}>
+            10А класс
+          </p>
+          <h2 style={{ color: '#fff', fontSize: 22, fontWeight: 900, lineHeight: 1.1 }}>
+            Расписание уроков
+          </h2>
+        </div>
       </div>
 
       {/* Day switcher */}
       <div style={{
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(32px) saturate(1.8)',
-        WebkitBackdropFilter: 'blur(32px) saturate(1.8)',
+        background: '#0D1B4B',
         borderRadius: 20,
-        border: '1px solid rgba(255,255,255,0.25)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.4) inset',
         padding: '12px 16px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        boxShadow: '0 4px 20px rgba(13,27,75,0.35)',
       }}>
         <button
           onClick={prev}
           style={{
-            background: 'rgba(220,38,38,0.12)',
-            border: '1px solid rgba(220,38,38,0.2)',
+            background: 'rgba(245,200,0,0.18)',
+            border: '1.5px solid rgba(245,200,0,0.4)',
             borderRadius: 12,
             width: 40, height: 40,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#dc2626',
+            color: '#F5C800',
             transition: 'all 0.18s',
           }}
         >
@@ -146,14 +158,14 @@ const ScheduleContent: React.FC = () => {
         </button>
 
         <div className="text-center">
-          <div className="text-lg font-bold" style={{ color: '#dc2626' }}>{DAYS[dayIdx]}</div>
+          <div className="text-lg font-bold" style={{ color: '#F5C800' }}>{DAYS[dayIdx]}</div>
           <div className="flex gap-1 justify-center mt-1">
             {DAYS.map((_, i) => (
               <div key={i} style={{
                 width: i === dayIdx ? 18 : 6,
                 height: 6,
                 borderRadius: 3,
-                background: i === dayIdx ? '#dc2626' : 'rgba(220,38,38,0.25)',
+                background: i === dayIdx ? '#F5C800' : 'rgba(245,200,0,0.3)',
                 transition: 'all 0.22s cubic-bezier(0.34,1.56,0.64,1)',
               }} />
             ))}
@@ -163,12 +175,12 @@ const ScheduleContent: React.FC = () => {
         <button
           onClick={next}
           style={{
-            background: 'rgba(220,38,38,0.12)',
-            border: '1px solid rgba(220,38,38,0.2)',
+            background: 'rgba(245,200,0,0.18)',
+            border: '1.5px solid rgba(245,200,0,0.4)',
             borderRadius: 12,
             width: 40, height: 40,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#dc2626',
+            color: '#F5C800',
             transition: 'all 0.18s',
           }}
         >

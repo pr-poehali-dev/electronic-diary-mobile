@@ -117,26 +117,23 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
   return (
     <div className="space-y-3 animate-fade-in flex flex-col" style={{ minHeight: '80vh' }}>
 
-      {/* Заголовок — стиль расписания */}
+      {/* Заголовок */}
       <div style={{
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(32px) saturate(1.8)',
-        WebkitBackdropFilter: 'blur(32px) saturate(1.8)',
+        background: '#0D1B4B',
         borderRadius: 20,
-        border: '1px solid rgba(255,255,255,0.25)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         padding: '12px 14px',
+        boxShadow: '0 4px 20px rgba(13,27,75,0.35)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button
             onClick={onBack}
             style={{
-              background: 'rgba(220,38,38,0.12)',
-              border: '1px solid rgba(220,38,38,0.2)',
+              background: 'rgba(245,200,0,0.18)',
+              border: '1.5px solid rgba(245,200,0,0.4)',
               borderRadius: 12,
               width: 38, height: 38,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#dc2626',
+              color: '#F5C800',
               flexShrink: 0,
             }}
           >
@@ -147,7 +144,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
             width: 46, height: 46,
             borderRadius: '50%',
             overflow: 'hidden',
-            border: isStudentChat ? '2px solid rgba(59,130,246,0.5)' : '2px solid rgba(220,38,38,0.4)',
+            border: isStudentChat ? '2px solid rgba(13,27,75,0.5)' : '2px solid rgba(232,0,14,0.6)',
             flexShrink: 0,
           }}>
             {chat.avatar ? (
@@ -159,15 +156,14 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
 
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-              <span style={{ fontWeight: 700, fontSize: 15, color: 'rgba(30,10,10,0.9)' }}>
+              <span style={{ fontWeight: 700, fontSize: 15, color: '#fff' }}>
                 {chat.from}
               </span>
               <span style={{
                 fontSize: 10,
-                fontWeight: 600,
-                color: isStudentChat ? '#2563eb' : '#dc2626',
-                background: isStudentChat ? 'rgba(59,130,246,0.12)' : 'rgba(220,38,38,0.10)',
-                border: `1px solid ${isStudentChat ? 'rgba(59,130,246,0.3)' : 'rgba(220,38,38,0.25)'}`,
+                fontWeight: 700,
+                color: isStudentChat ? '#0D1B4B' : '#0D1B4B',
+                background: '#F5C800',
                 borderRadius: 8,
                 padding: '1px 7px',
                 letterSpacing: '0.04em',
@@ -175,7 +171,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
                 {isStudentChat ? 'Ученик' : 'Учитель'}
               </span>
             </div>
-            <p style={{ fontSize: 11, color: 'rgba(30,10,10,0.4)', marginTop: 1 }}>онлайн</p>
+            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginTop: 1 }}>онлайн</p>
           </div>
         </div>
       </div>
@@ -196,7 +192,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
                   width: 34, height: 34,
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  border: isStudentChat ? '2px solid rgba(59,130,246,0.3)' : '2px solid rgba(220,38,38,0.3)',
+                  border: '2px solid rgba(232,0,14,0.35)',
                   flexShrink: 0,
                 }}>
                   {chat.avatar ? (
@@ -209,13 +205,13 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
               <div style={{
                 maxWidth: '72%',
                 background: isMine
-                  ? 'rgba(220,38,38,0.15)'
-                  : 'rgba(255,255,255,0.55)',
+                  ? 'rgba(232,0,14,0.12)'
+                  : 'rgba(13,27,75,0.08)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
                 border: isMine
-                  ? '1px solid rgba(220,38,38,0.25)'
-                  : '1px solid rgba(255,255,255,0.4)',
+                  ? '1.5px solid rgba(232,0,14,0.25)'
+                  : '1.5px solid rgba(13,27,75,0.18)',
                 borderRadius: isMine ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
                 padding: '10px 13px',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
@@ -234,15 +230,13 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
 
       {/* Поле ввода */}
       <div style={{
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(32px)',
-        WebkitBackdropFilter: 'blur(32px)',
+        background: '#0D1B4B',
         borderRadius: 20,
-        border: '1px solid rgba(255,255,255,0.25)',
         padding: '10px 12px',
         display: 'flex',
         gap: 8,
         alignItems: 'center',
+        boxShadow: '0 -2px 20px rgba(13,27,75,0.2)',
       }}>
         <input
           type="text"
@@ -251,20 +245,20 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
           placeholder="Написать сообщение..."
           style={{
             flex: 1,
-            background: 'rgba(255,255,255,0.5)',
-            border: '1px solid rgba(220,38,38,0.2)',
+            background: 'rgba(255,255,255,0.12)',
+            border: '1.5px solid rgba(245,200,0,0.25)',
             borderRadius: 50,
             padding: '8px 14px',
             fontSize: 13,
             outline: 'none',
-            color: 'rgba(30,10,10,0.85)',
+            color: '#fff',
           }}
           onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
         />
         <button
           onClick={sendMessage}
           style={{
-            background: 'rgba(220,38,38,0.85)',
+            background: '#E8000E',
             border: 'none',
             borderRadius: '50%',
             width: 38, height: 38,
@@ -272,6 +266,7 @@ const ChatDialog: React.FC<ChatDialogProps> = ({ chat, onBack, newMessage, setNe
             color: 'white',
             cursor: 'pointer',
             flexShrink: 0,
+            boxShadow: '0 4px 12px rgba(232,0,14,0.4)',
           }}
         >
           <Icon name="Send" size={17} />

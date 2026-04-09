@@ -28,15 +28,15 @@ interface MessagesContentProps {
 
 const ROLE_COLORS: Record<string, { bg: string; border: string; text: string; label: string }> = {
   teacher: {
-    bg: 'rgba(220,38,38,0.13)',
-    border: 'rgba(220,38,38,0.35)',
-    text: '#dc2626',
+    bg: 'rgba(232,0,14,0.1)',
+    border: 'rgba(232,0,14,0.32)',
+    text: '#E8000E',
     label: 'Учитель',
   },
   student: {
-    bg: 'rgba(59,130,246,0.13)',
-    border: 'rgba(59,130,246,0.35)',
-    text: '#2563eb',
+    bg: 'rgba(13,27,75,0.1)',
+    border: 'rgba(13,27,75,0.28)',
+    text: '#0D1B4B',
     label: 'Ученик',
   },
 };
@@ -47,59 +47,72 @@ const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen,
   return (
     <div className="space-y-3 animate-fade-in pb-2">
 
-      {/* Header — как в расписании */}
+      {/* Header */}
       <div style={{
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(32px) saturate(1.8)',
-        WebkitBackdropFilter: 'blur(32px) saturate(1.8)',
-        borderRadius: 20,
-        border: '1px solid rgba(255,255,255,0.25)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.4) inset',
-        padding: '14px 16px',
-        position: 'relative',
+        borderRadius: 22,
         overflow: 'hidden',
+        position: 'relative',
+        background: '#E8000E',
+        boxShadow: '0 6px 32px rgba(232,0,14,0.4)',
+        padding: '20px 22px',
       }}>
-        <p className="text-center text-xs font-medium" style={{ color: 'rgba(220,38,38,0.7)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          10А класс
-        </p>
-        <h2 className="text-center text-lg font-bold mt-0.5" style={{ color: 'rgba(30,10,10,0.9)' }}>
-          Сообщения
-        </h2>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 10 }}>
-          {unread > 0 && (
-            <span style={{
-              background: 'rgba(220,38,38,0.12)',
-              border: '1px solid rgba(220,38,38,0.25)',
-              borderRadius: 20,
-              padding: '2px 12px',
-              fontSize: 12,
-              color: '#dc2626',
-              fontWeight: 600,
-            }}>
-              {unread} непрочитанных
-            </span>
-          )}
-          {onNewChat && (
-            <button
-              onClick={onNewChat}
-              style={{
-                background: 'rgba(220,38,38,0.85)',
-                border: 'none',
-                borderRadius: 50,
-                padding: '5px 14px',
-                color: 'white',
-                fontWeight: 700,
+        <div style={{
+          position: 'absolute', top: -30, right: -20,
+          width: 130, height: 240,
+          background: '#F5C800',
+          transform: 'rotate(-18deg)',
+          zIndex: 0,
+        }} />
+        <div style={{
+          position: 'absolute', top: -30, right: -52,
+          width: 130, height: 240,
+          background: '#0D1B4B',
+          transform: 'rotate(-18deg)',
+          zIndex: 0,
+        }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 2 }}>
+            10А класс
+          </p>
+          <h2 style={{ color: '#fff', fontSize: 22, fontWeight: 900, lineHeight: 1.1, marginBottom: 10 }}>
+            Сообщения
+          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {unread > 0 && (
+              <span style={{
+                background: 'rgba(255,255,255,0.2)',
+                border: '1px solid rgba(255,255,255,0.35)',
+                borderRadius: 20,
+                padding: '3px 12px',
                 fontSize: 12,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 5,
-              }}
-            >
-              <Icon name="Plus" size={13} />
-              Новый чат
-            </button>
-          )}
+                color: '#fff',
+                fontWeight: 700,
+              }}>
+                {unread} непрочитанных
+              </span>
+            )}
+            {onNewChat && (
+              <button
+                onClick={onNewChat}
+                style={{
+                  background: '#F5C800',
+                  border: 'none',
+                  borderRadius: 50,
+                  padding: '5px 14px',
+                  color: '#0D1B4B',
+                  fontWeight: 800,
+                  fontSize: 12,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 5,
+                }}
+              >
+                <Icon name="Plus" size={13} />
+                Новый чат
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -160,7 +173,7 @@ const MessagesContent: React.FC<MessagesContentProps> = ({ messages, onChatOpen,
                     <div style={{
                       width: 7, height: 7,
                       borderRadius: '50%',
-                      background: '#dc2626',
+                      background: '#E8000E',
                       flexShrink: 0,
                     }} />
                   )}

@@ -107,14 +107,14 @@ const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
             style={{
               width: '100%',
               padding: '13px',
-              background: 'linear-gradient(135deg, rgba(59,130,246,0.85), rgba(99,102,241,0.85))',
-              backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255,255,255,0.3)',
+              background: '#E8000E',
+              border: 'none',
               borderRadius: 14,
               color: '#fff',
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: 15,
               cursor: 'pointer',
+              boxShadow: '0 4px 16px rgba(232,0,14,0.35)',
             }}
             onClick={() => { setShowTopUp(false); setTopUpAmount(''); }}
           >
@@ -131,48 +131,69 @@ const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
 
       {/* Hero — карточка с балансом */}
       <div style={{
-        ...glass,
-        background: 'linear-gradient(135deg, rgba(234,179,8,0.65) 0%, rgba(220,38,38,0.6) 100%)',
-        border: '1px solid rgba(255,255,255,0.3)',
-        padding: '24px',
-        position: 'relative',
+        borderRadius: 24,
         overflow: 'hidden',
+        position: 'relative',
+        background: '#0D1B4B',
+        boxShadow: '0 8px 40px rgba(13,27,75,0.45)',
+        padding: '24px',
       }}>
         <div style={{
-          position: 'absolute', top: -40, right: -40,
-          width: 160, height: 160, borderRadius: '50%',
-          background: 'rgba(255,255,255,0.1)',
+          position: 'absolute', top: -40, right: -20,
+          width: 150, height: 280,
+          background: '#E8000E',
+          transform: 'rotate(-18deg)',
+          zIndex: 0,
+          opacity: 0.6,
         }} />
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h2 className="text-xl font-bold text-white">Школьная карта</h2>
-            <p className="text-white/70 text-sm">№ 2025090012345</p>
+        <div style={{
+          position: 'absolute', top: -40, right: -55,
+          width: 150, height: 280,
+          background: '#F5C800',
+          transform: 'rotate(-18deg)',
+          zIndex: 0,
+          opacity: 0.4,
+        }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 style={{ fontSize: 20, fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>Школьная карта</h2>
+              <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 12, marginTop: 2 }}>№ 2025090012345</p>
+            </div>
+            <div style={{
+              width: 48, height: 48, borderRadius: 14,
+              background: '#F5C800',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(245,200,0,0.4)',
+            }}>
+              <Icon name="CreditCard" size={26} style={{ color: '#0D1B4B' }} />
+            </div>
           </div>
-          <Icon name="CreditCard" size={32} style={{ color: 'rgba(255,255,255,0.75)' }} />
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 12, marginBottom: 4 }}>Баланс</p>
+          <p style={{ fontSize: 36, fontWeight: 900, color: '#fff', marginBottom: 16, textShadow: '0 2px 12px rgba(0,0,0,0.2)' }}>{balance.toFixed(2)} ₽</p>
+          <button
+            onClick={() => setShowTopUp(true)}
+            style={{
+              background: '#F5C800',
+              border: 'none',
+              borderRadius: 14,
+              padding: '10px 22px',
+              color: '#0D1B4B',
+              fontWeight: 800,
+              fontSize: 14,
+              cursor: 'pointer',
+              boxShadow: '0 4px 14px rgba(245,200,0,0.4)',
+            }}
+          >
+            Пополнить карту
+          </button>
         </div>
-        <p className="text-white/70 text-sm">Баланс</p>
-        <p className="text-3xl font-black text-white mb-4">{balance.toFixed(2)} ₽</p>
-        <button
-          onClick={() => setShowTopUp(true)}
-          style={{
-            background: 'rgba(255,255,255,0.22)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.35)',
-            borderRadius: 12,
-            padding: '8px 18px',
-            color: '#fff',
-            fontWeight: 600,
-            cursor: 'pointer',
-          }}
-        >
-          Пополнить карту
-        </button>
       </div>
 
       {/* История покупок */}
       <div style={{ ...glass, padding: '16px' }}>
         <div className="flex items-center gap-2 mb-3">
-          <Icon name="Receipt" size={18} style={{ color: 'rgba(59,130,246,0.85)' }} />
+          <Icon name="Receipt" size={18} style={{ color: '#E8000E' }} />
           <span className="font-bold text-base" style={{ color: 'rgba(30,10,10,0.9)' }}>История покупок</span>
         </div>
         <div className="space-y-2">
@@ -189,7 +210,7 @@ const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
               <div className="flex-1">
                 <div className="flex items-center justify-between mb-0.5">
                   <span className="font-semibold text-sm" style={{ color: 'rgba(30,10,10,0.9)' }}>{purchase.item}</span>
-                  <span className="font-bold text-sm" style={{ color: 'rgba(220,38,38,0.9)' }}>−{purchase.price.toFixed(2)} ₽</span>
+                  <span className="font-bold text-sm" style={{ color: '#E8000E' }}>−{purchase.price.toFixed(2)} ₽</span>
                 </div>
                 <div className="flex items-center gap-1 text-xs" style={{ color: 'rgba(0,0,0,0.4)' }}>
                   <span>{purchase.date}</span>
@@ -207,28 +228,28 @@ const SchoolCardContent: React.FC<SchoolCardContentProps> = ({
       {/* Статистика */}
       <div style={{ ...glass, padding: '16px' }}>
         <div className="flex items-center gap-2 mb-3">
-          <Icon name="TrendingUp" size={18} style={{ color: 'rgba(234,179,8,0.9)' }} />
+          <Icon name="TrendingUp" size={18} style={{ color: '#F5C800' }} />
           <span className="font-bold text-base" style={{ color: 'rgba(30,10,10,0.9)' }}>Статистика</span>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div style={{
             textAlign: 'center',
             padding: '14px',
-            background: 'rgba(59,130,246,0.12)',
+            background: 'rgba(13,27,75,0.08)',
             borderRadius: 14,
-            border: '1px solid rgba(59,130,246,0.2)',
+            border: '1.5px solid rgba(13,27,75,0.18)',
           }}>
-            <p className="text-2xl font-black" style={{ color: 'rgba(59,130,246,0.9)' }}>4</p>
+            <p className="text-2xl font-black" style={{ color: '#0D1B4B' }}>4</p>
             <p className="text-xs mt-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Покупок сегодня</p>
           </div>
           <div style={{
             textAlign: 'center',
             padding: '14px',
-            background: 'rgba(234,179,8,0.12)',
+            background: 'rgba(245,200,0,0.15)',
             borderRadius: 14,
-            border: '1px solid rgba(234,179,8,0.25)',
+            border: '1.5px solid rgba(245,200,0,0.4)',
           }}>
-            <p className="text-2xl font-black" style={{ color: 'rgba(180,130,0,0.95)' }}>410 ₽</p>
+            <p className="text-2xl font-black" style={{ color: '#92700a' }}>410 ₽</p>
             <p className="text-xs mt-0.5" style={{ color: 'rgba(0,0,0,0.5)' }}>Потрачено за неделю</p>
           </div>
         </div>

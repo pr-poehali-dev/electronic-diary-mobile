@@ -185,19 +185,28 @@ const GradesPage: React.FC = () => {
 
           {/* Шапка */}
           <div style={{
-            ...glass,
-            background: 'linear-gradient(135deg, rgba(220,38,38,0.72) 0%, rgba(239,68,68,0.55) 100%)',
-            border: '1px solid rgba(255,255,255,0.3)',
-            padding: '14px 16px',
-            position: 'relative',
+            borderRadius: 22,
             overflow: 'hidden',
+            position: 'relative',
+            background: '#E8000E',
+            boxShadow: '0 6px 32px rgba(232,0,14,0.4)',
+            padding: '16px 18px',
           }}>
             <div style={{
-              position: 'absolute', top: -20, right: -20,
-              width: 100, height: 100, borderRadius: '50%',
-              background: 'rgba(255,255,255,0.1)',
+              position: 'absolute', top: -30, right: -20,
+              width: 130, height: 240,
+              background: '#F5C800',
+              transform: 'rotate(-18deg)',
+              zIndex: 0,
             }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{
+              position: 'absolute', top: -30, right: -52,
+              width: 130, height: 240,
+              background: '#0D1B4B',
+              transform: 'rotate(-18deg)',
+              zIndex: 0,
+            }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, position: 'relative', zIndex: 1 }}>
               <button
                 onClick={() => navigate('/')}
                 style={{
@@ -213,23 +222,23 @@ const GradesPage: React.FC = () => {
                 <Icon name="ArrowLeft" size={20} />
               </button>
               <div>
-                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   10А класс
                 </p>
-                <h1 style={{ color: 'white', fontSize: 18, fontWeight: 800, lineHeight: 1.2 }}>
+                <h1 style={{ color: 'white', fontSize: 20, fontWeight: 900, lineHeight: 1.1 }}>
                   Журнал оценок
                 </h1>
               </div>
               <div style={{
                 marginLeft: 'auto',
-                background: 'rgba(255,255,255,0.2)',
-                border: '1px solid rgba(255,255,255,0.3)',
+                background: '#F5C800',
                 borderRadius: 14,
                 padding: '6px 14px',
                 textAlign: 'center',
+                boxShadow: '0 3px 12px rgba(245,200,0,0.4)',
               }}>
-                <div style={{ color: 'white', fontWeight: 800, fontSize: 20, lineHeight: 1 }}>{overallAverage()}</div>
-                <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: 10, fontWeight: 500 }}>ср. балл</div>
+                <div style={{ color: '#0D1B4B', fontWeight: 900, fontSize: 20, lineHeight: 1 }}>{overallAverage()}</div>
+                <div style={{ color: 'rgba(13,27,75,0.6)', fontSize: 10, fontWeight: 700 }}>ср. балл</div>
               </div>
             </div>
           </div>
@@ -244,8 +253,8 @@ const GradesPage: React.FC = () => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <div style={{
                       width: 40, height: 40, borderRadius: 12,
-                      background: 'rgba(220,38,38,0.1)',
-                      border: '1px solid rgba(220,38,38,0.2)',
+                      background: 'rgba(232,0,14,0.08)',
+                      border: '1.5px solid rgba(232,0,14,0.2)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       fontSize: 20, flexShrink: 0,
                     }}>
@@ -298,16 +307,18 @@ const GradesPage: React.FC = () => {
 
           {/* Футер */}
           <div style={{
-            ...glass,
+            background: '#0D1B4B',
+            borderRadius: 18,
             padding: '12px 16px',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            boxShadow: '0 4px 20px rgba(13,27,75,0.35)',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'rgba(30,10,10,0.5)', fontSize: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,0.55)', fontSize: 12 }}>
               <Icon name="Calendar" size={14} />
               Сентябрь 2025
             </div>
-            <div style={{ fontWeight: 700, fontSize: 13, color: 'rgba(30,10,10,0.7)' }}>
-              Общий средний: <span style={{ color: '#16a34a' }}>{overallAverage()}</span>
+            <div style={{ fontWeight: 700, fontSize: 13, color: 'rgba(255,255,255,0.8)' }}>
+              Средний: <span style={{ color: '#F5C800', fontWeight: 900 }}>{overallAverage()}</span>
             </div>
           </div>
 
