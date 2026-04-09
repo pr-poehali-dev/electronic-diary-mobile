@@ -25,11 +25,11 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#DC2626', // Красный
+					DEFAULT: '#E8000E', // Ярко-красный
 					foreground: '#FFFFFF'
 				},
 				secondary: {
-					DEFAULT: '#2563EB', // Синий
+					DEFAULT: '#0D1B4B', // Тёмно-синий
 					foreground: '#FFFFFF'
 				},
 				destructive: {
@@ -41,7 +41,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: '#EAB308', // Желтый
+					DEFAULT: '#F5C800', // Насыщенный жёлтый
 					foreground: '#000000'
 				},
 				popover: {
@@ -53,9 +53,9 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				diary: {
-					red: '#DC2626',
-					blue: '#2563EB', 
-					yellow: '#EAB308',
+					red: '#E8000E',
+					blue: '#0D1B4B', 
+					yellow: '#F5C800',
 					white: '#FFFFFF',
 					gray: '#F3F4F6',
 				},
